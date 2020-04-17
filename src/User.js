@@ -1,18 +1,27 @@
+import './Booking';
+import dom from './dom';
+
+
 class User {
 	constructor(data) {
 		this.id = data.id;
+		this.name = data.name;
 		this.username = `customer${this.id}`
 		this.password = 'overlook2020'
-		this.name = data.name;
 		this.myBookings = [];
 	}
 
-	signIn(name, pword) {
-		name === this.username && pword === this.password ? true : false;
+	signIn(usernameInput, passwordInput) {
+		if (usernameInput === this.username && passwordInput === this.password) {
+			dom.displayUserView();
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	bookRoom() {
-		
+		let booking = new Booking();
 	}
 }
 
