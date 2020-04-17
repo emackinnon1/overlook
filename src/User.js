@@ -1,5 +1,4 @@
 import './Booking';
-import dom from './dom';
 
 
 class User {
@@ -13,7 +12,6 @@ class User {
 
 	signIn(usernameInput, passwordInput) {
 		if (usernameInput === this.username && passwordInput === this.password) {
-			dom.displayUserView();
 			return true;
 		} else {
 			return false;

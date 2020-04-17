@@ -26,8 +26,10 @@ const dom = {
 	handleUserLogin(e) {
 		if (manager.signIn($('.username').val(), $('.password').val())) {
 			state.currentUser = manager;
+			dom.displayManagerView();
 		} else if (manager.users.find(user => user.signIn($('.username').val(), $('.password').val()))) {
 			state.currentUser = manager.users.find(user => user.signIn($('.username').val(), $('.password').val()))
+			dom.displayUserView();
 		} else {
 			alert('Your username or password is incorrect!');
 		}
