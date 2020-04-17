@@ -6,6 +6,7 @@ import state from './state';
 
 
 
+
 $(window).on('load', retrieveAllData)
 // $('.guest-sign-in').on('click', dom.handleUserLogin);
 $('.sign-in').on('click', dom.handleUserLogin)
@@ -39,5 +40,5 @@ function makeHotel(rooms, bookings, roomServices, users) {
 		return acc;
 	}, {})
 	console.log(types)
-	
+
 }
