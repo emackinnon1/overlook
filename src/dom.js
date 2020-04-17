@@ -16,20 +16,21 @@ import './images/gym.jpg';
 
 import User from './User';
 import Manager from './Manager';
-import { manager, currentUser } from './index'
+import { manager, currentUser, usersData } from './index'
+import state from './state';
 
 
 
 const dom = {
 
-	userLogin() {
-		 manager.users.find(user => {
-			return user.signIn($('.username').val(), $('.password').val());
-
-		})
-		// console.log(manager.users[0].signIn('customer1', 'overlook2020'))
-		
-		// currentUser = correct;
+	handleUserLogin(e) {
+		if (manager.signIn($('.username').val(), $('.password').val())) {
+			state.currentUser = manager;
+		} else if (manager.users.find(user => user.signIn($('.username').val(), $('.password').val()))) {
+			state.currentUser = manager.users.find(user => user.signIn($('.username').val(), $('.password').val()))
+		} else {
+			alert('Your username or password is incorrect!');
+		}
 	},
 
 	displayUserView() {
@@ -38,7 +39,8 @@ const dom = {
 	},
 	
 	displayManagerView() {
-		
+		$('.login-box').addClass('hide');
+		$('.manager-view').removeClass('hide');
 	}
 
 }

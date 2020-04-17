@@ -1,4 +1,5 @@
 import User from './User'
+import dom from './dom';
 
 
 class Manager {
@@ -19,7 +20,7 @@ class Manager {
 
 	signIn(usernameInput, passwordInput) {
 		if (usernameInput === this.username && passwordInput === this.password) {
-			// dom.displayManagerView();
+			dom.displayManagerView();
 			return true;
 		} else {
 			return false;
