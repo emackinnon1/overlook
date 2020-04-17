@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import './css/base.scss';
-import './images/turing-logo.png'
+import dom from './dom.js';
+
 
 /* 
 Iteration Uno------------
@@ -15,11 +15,17 @@ will be hard to test for all potential wrong usernames, but passwords will be ea
 Iteration Dos------------
 
 
-class structure
-user methods:
-	s
+class structure:
+manager
+	-array todaysBookings that is updated with a method
+users
+	-myBookings 
+rooms
+roomServices
+bookings
+calculator?
 
-
+moment.js?
 
 */
 $(window).on('load', retrieveAllData)
@@ -37,7 +43,6 @@ function retrieveAllData() {
 			fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users").then(response => response.json())
 		])
 		.then(data => makeHotel(data[0].rooms, data[1].bookings, data[2].roomServices, data[3].users))
-		// .then(data => console.log(data))
 		.catch(error => console.log(error));
 }
 
@@ -51,8 +56,19 @@ function makeHotel(rooms, bookings, roomServices, users) {
 setTimeout(print, 1000)
 
 function print() {
+	let types = roomsData.reduce((acc, room) => {
+		if (!acc[room.roomType]) {
+			acc[room.roomType] = 0;
+		}
+			acc[room.roomType]++;
+			return acc;
+	}, {})
+	console.log(types)
 	console.log(roomsData)
 	console.log(bookingsData)
 	console.log(roomServicesData)
 	console.log(usersData)
 }
+
+
+dom.print()

@@ -1,6 +1,79 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: blue;
+@import 'login';
+@import 'variables';
+
+
+.hide {
+	display: none;
+}
 
 body {
-  background-color: $primary-background;
+	background-color: #243b55;
+	color: $text;
+	font-family: 'Arial', sans-serif;
+}
+
+
+header {
+	background-color: #141e30;
+	border-bottom: solid 2px $accent;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 50px;
+	padding-bottom: 5px;
+
+	h4 {
+		margin-top: 5px;
+	}
+}
+
+.entrance {
+	height: 400px;
+	width: 100%;
+	margin: none;
+}
+
+.amenities {
+	display: flex;
+	float: left;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 70px;
+	// position: fixed;
+	width: 28%;
+
+	img {
+		//mixin
+		border-radius: 6px;
+		box-shadow: 2px 2px 2px 2px $dark-blue;
+		//
+		height: 300px;
+		margin: 20px;
+	}
+
+	p {
+		margin: auto;
+	}
+
+}
+
+.menu {
+	background-color: $dark-blue;
+	border-radius: 6px;
+	display: flex;
+	float: right;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 50px;
+	padding: 10px;
+	width: 20%;
+	
+	img {
+		border-radius: 6px;
+		height: 200px;
+	}
+}
+
+section {
+	height: 1500px;
 }
