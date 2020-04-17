@@ -1,11 +1,12 @@
-import './User.js'
+import './User'
 
 
 class Manager {
 	constructor(data) {
 		this.username = 'manager';
 		this.password = 'overlook';
-		this.users = ;
+		this.users = [];
+		this.bookings = [];
 	}
 
 	makeUsers(userData) {
