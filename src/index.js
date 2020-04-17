@@ -1,5 +1,7 @@
 import $ from 'jquery';
 import dom from './dom.js';
+import User from './User';
+import Manager from './Manager';
 
 
 /* 
@@ -20,20 +22,19 @@ manager
 	-array todaysBookings that is updated with a method
 users
 	-myBookings 
-rooms
-roomServices
-bookings
-calculator?
+	rooms
+	roomServices
+	bookings
+	calculator?
+	
+	moment.js?
+	
+	*/
+	$(window).on('load', retrieveAllData)
+	$('.guest-sign-in').on('click', dom.userLogin)
 
-moment.js?
+export let manager, roomsData, bookingsData, roomServicesData, usersData, currentUser;
 
-*/
-$(window).on('load', retrieveAllData)
-
-let roomsData;
-let bookingsData;
-let roomServicesData;
-let usersData;
 
 function retrieveAllData() {
 	Promise.all([
@@ -53,22 +54,24 @@ function makeHotel(rooms, bookings, roomServices, users) {
 	usersData = users;
 }
 
-setTimeout(print, 1000)
+setTimeout(print, 9000)
 
 function print() {
 	let types = roomsData.reduce((acc, room) => {
+		//DELETE LATER
 		if (!acc[room.roomType]) {
 			acc[room.roomType] = 0;
 		}
 			acc[room.roomType]++;
 			return acc;
 	}, {})
-	console.log(types)
-	console.log(roomsData)
-	console.log(bookingsData)
-	console.log(roomServicesData)
-	console.log(usersData)
+
+	// console.log(types)
+	// console.log(roomsData)
+	// console.log(bookingsData)
+	// console.log(roomServicesData)
+	manager = new Manager(usersData);
+	console.log(manager)
+	console.log(currentUser)
 }
 
-
-dom.print()
