@@ -27,8 +27,7 @@ describe('User', function() {
 	});
 
 	it.only('should be able find total spent on rooms', function() {
-
-
-		manager.users[0].findRoomTotal([1, 2, 3])
+		manager.users[0].findMyBookings(bookingsTestData);
+		expect(manager.users[0].findRoomTotal(hotel.rooms)).to.equal(866.35);
 	});
 });

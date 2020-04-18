@@ -18,21 +18,20 @@ class User {
 	}
 
 	findRoomTotal(rooms) {
-		// iterate over bookings
-		// find bookings that match currentUser.id
-		// iterate over rooms and pull costPerNight
-		// sum costs
-		console.log(this.myBookings)
-		this.myBookings.reduce((acc, booking) => {
-			console.log(booking);
-			acc += booking
-			// rooms.forEach(room => {
-			// 	if (booking.roomNumber === room.number) {
-			// 		acc += room.costPerNight;
-			// 	}
-			// })
+		let roomTotal = this.myBookings.reduce((acc, booking) => {
+			rooms.forEach(room => {
+				if (booking.roomNumber === room.number) {
+					acc += room.costPerNight;
+				}
+			})
 			return acc;
 		}, 0);
+
+		return Number(roomTotal.toFixed(2));
+	}
+
+	findMyBookings(bookingsData) {
+		this.myBookings = bookingsData.filter(booking => booking.userID === this.id);
 	}
 
 	bookRoom() {
