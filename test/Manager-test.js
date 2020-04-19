@@ -1,8 +1,25 @@
 import chai from 'chai';
 const expect = chai.expect;
 
-describe('See if the tests are running', function() {
-  it('should return true', function() {
-    expect(true).to.equal(true);
-  });
+import {roomServicesTestData, roomsTestData, bookingsTestData} from './test-data/hotel-test-data';
+import userTestData from './test-data/user-test-data';
+
+import Manager from '../src/Manager';
+import Hotel from '../src/Hotel';
+
+describe('Manager', function() {
+	let manager;
+	let hotel;
+
+	beforeEach(() => {
+		manager = new Manager(userTestData);
+		hotel = new Hotel(bookingsTestData, roomServicesTestData, roomsTestData);
+	});
+  it('should be an instance of Manager class', function() {
+		expect(manager).to.be.an.instanceOf(Manager);
+	});
+	
+	it('should find total rooms available for today\'s date', function() {
+		
+	});
 });

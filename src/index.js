@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import dom from './dom.js';
+import state from './state';
 import User from './User';
 import Manager from './Manager';
-import state from './state';
-
+import Hotel from './Hotel';
 
 
 
@@ -11,7 +11,7 @@ $(window).on('load', retrieveAllData)
 // $('.guest-sign-in').on('click', dom.handleUserLogin);
 $('.sign-in').on('click', dom.handleUserLogin)
 
-export let manager, hotel, roomsData, bookingsData, roomServicesData, usersData;
+export let manager, hotel, roomsData;
 
 function retrieveAllData() {
 	Promise.all([
@@ -26,13 +26,9 @@ function retrieveAllData() {
 
 function makeHotel(rooms, bookings, roomServices, users) {
 	manager = new Manager(users)
-	// hotel = new Hotel();
-	roomsData = rooms;
-	bookingsData = bookings;
-	roomServicesData = roomServices;
-	usersData = users;
-	console.log(manager)
-	let types = roomsData.reduce((acc, room) => {
+	hotel = new Hotel(bookings, roomServices, rooms);
+// DELETE THE FOLLOWING LATER
+	let types = rooms.reduce((acc, room) => {
 		if (!acc[room.roomType]) {
 			acc[room.roomType] = 0;
 		}
