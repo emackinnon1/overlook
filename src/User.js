@@ -1,3 +1,5 @@
+import Booking from './Booking';
+
 class User {
 	constructor(data) {
 		this.id = data.id;
@@ -41,8 +43,10 @@ class User {
 	}
 
 	bookRoom(data) {
-		let booking = new Booking();
+		let booking = new Booking(data);
+		this.myBookings.push(booking);
 	}
+
 }
 
 

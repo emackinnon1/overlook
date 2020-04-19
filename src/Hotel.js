@@ -53,7 +53,7 @@ class Hotel {
 			return acc;
 		}, 0)
 
-		return total.toFixed(2);
+		return Number(total.toFixed(2));
 	}
 
 	findOccupiedToday(date) {
