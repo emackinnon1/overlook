@@ -14,6 +14,8 @@ import './images/single.jpg';
 import './images/hallway.jpg';
 import './images/gym.jpg';
 
+var moment = require('moment');
+
 import {
 	manager,
 	hotel
@@ -57,6 +59,7 @@ const dom = {
 	displayManagerView() {
 		$('.login-box').addClass('hide');
 		$('.manager-view').removeClass('hide');
+		dom.displayManagerDashboard();
 	},
 
 	displayMyBookings() {
@@ -67,6 +70,17 @@ const dom = {
 				<p>Date: ${booking.date}, Room Type: ${booking.roomType}</p>
 			`);
 		});
+	},
+	
+	displayManagerDashboard() {
+		$('.manager-dashboard').append(`
+		<h3>${moment().format('MMMM Do YYYY')}</h3>
+			<p>Total rooms available today: ${state.currentHotel.findAvailabilityToday(moment().format('YYYY/MM/DD'))}</p>
+			<p>Total revenue for today: $${state.currentHotel.findRevenueToday(moment().format('YYYY/MM/DD'))}</p>
+			<p>Percentage of rooms occupied today: ${state.currentHotel.findOccupiedToday(moment().format('YYYY/MM/DD'))}%</p>
+		`);
+		let a = moment().format('YYYY/MM/DD');
+
 	}
 
 }

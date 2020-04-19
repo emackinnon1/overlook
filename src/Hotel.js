@@ -44,7 +44,7 @@ class Hotel {
 	}
 
 	findRevenueToday(date) {
-		return this.getTodaysBookings(date).reduce((acc, booking) => {
+		let total = this.getTodaysBookings(date).reduce((acc, booking) => {
 			this.rooms.forEach(room => {
 				if (booking.roomNumber === room.number) {
 					acc += room.costPerNight;
@@ -52,6 +52,8 @@ class Hotel {
 			})
 			return acc;
 		}, 0)
+
+		return total.toFixed(2);
 	}
 
 	findOccupiedToday(date) {

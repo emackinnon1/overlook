@@ -8,11 +8,14 @@ const state = {
 		state.currentUser = stateData.currentUser || state.currentUser;
 		state.currentHotel = stateData.currentHotel || state.currentHotel;
 		state.updateCurrentUserBookings()
-		console.log(state)
+		console.log(state.currentUser.id)
 	},
 
 	updateCurrentUserBookings() {
-		state.currentUser.findMyBookings(state.currentHotel.bookings, state.currentHotel.rooms);
+		if (state.currentUser.id) {
+			state.currentUser.findMyBookings(state.currentHotel.bookings, state.currentHotel.rooms);
+
+		}
 	},
 }
 
