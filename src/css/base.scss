@@ -90,14 +90,21 @@ header {
 		padding-top: 20px;
 	}
 
+	.book-room {
+		border: 1px solid $accent;
+		border-radius: 6px;
+		box-shadow: 0 0 1.5em $accent;
+		float: right;
+		margin-right: 75px;
+		margin-top: 21px;
+		width: 100px;
+	}
+
 	.my-bookings {
 		display: flex;
 		justify-content: center;
 		flex-direction: column;
 
-		.my-bookings-container {
-			display: block;
-		}
 
 		p {
 			border-bottom: 1px solid $accent;
