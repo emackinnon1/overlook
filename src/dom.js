@@ -61,9 +61,10 @@ const dom = {
 
 	displayMyBookings() {
 		$('.my-bookings').append('<h3>My Bookings:</h3>');
+		$('.my-bookings').append(`<h3>Total spent: $${state.currentUser.findRoomTotal(state.currentHotel.rooms)}</h3>`);
 		state.currentUser.myBookings.forEach(booking => {
 			$('.my-bookings').append(`
-				<p>Date: ${booking.date}, RoomNumber ${booking.roomNumber}</p>
+				<p>Date: ${booking.date}, Room Type: ${booking.roomType}</p>
 			`);
 		});
 	}

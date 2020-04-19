@@ -25,8 +25,19 @@ class User {
 		return Number(roomTotal.toFixed(2));
 	}
 
-	findMyBookings(bookingsData) {
+	findMyBookings(bookingsData, roomsData) {
 		this.myBookings = bookingsData.filter(booking => booking.userID === this.id);
+		this.findBookingRoomType(roomsData);
+	}
+
+	findBookingRoomType(roomsList) {
+		this.myBookings.forEach(booking => {
+			roomsList.forEach(room => {
+				if (room.number === booking.roomNumber) {
+					booking.roomType = room.roomType;
+				}
+			});
+		});
 	}
 
 	bookRoom(data) {
