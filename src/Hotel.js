@@ -37,7 +37,27 @@ class Hotel {
 			}
       return acc;
     }, []);
-  }
+	}
+	
+	findAvailabilityToday(date) {
+		return (this.rooms.length - this.getTodaysBookings(date).length)
+	}
+
+	findRevenueToday(date) {
+		return this.getTodaysBookings(date).reduce((acc, booking) => {
+			this.rooms.forEach(room => {
+				if (booking.roomNumber === room.number) {
+					acc += room.costPerNight;
+				}
+			})
+			return acc;
+		}, 0)
+	}
+
+	findOccupiedToday(date) {
+		let percent = (this.getTodaysBookings(date).length / this.rooms.length) * 100;
+		return Number(percent.toFixed(2));
+	}
 
 }
 

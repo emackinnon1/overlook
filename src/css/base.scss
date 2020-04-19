@@ -39,13 +39,13 @@ header {
 	flex-direction: column;
 	justify-content: center;
 	margin-top: 70px;
-	// position: fixed;
 	width: 28%;
 
 	img {
 		//mixin
 		border-radius: 6px;
-		box-shadow: 2px 2px 2px 2px $dark-blue;
+		border: 1px solid $accent;
+		box-shadow: 0 0 1.5em rgb(20, 30, 48);
 		//
 		height: 300px;
 		margin: 20px;
@@ -59,6 +59,8 @@ header {
 
 .menu {
 	background-color: $dark-blue;
+	border: 1px solid $accent;
+	box-shadow: 0 0 1.5em rgb(20, 30, 48);
 	border-radius: 6px;
 	display: flex;
 	float: right;
@@ -74,6 +76,32 @@ header {
 	}
 }
 
-section {
-	height: 1500px;
+.customer-main-dashboard {
+	background-color: $dark-blue;
+	border: 1px solid $accent;
+	border-radius: 6px;
+	box-shadow: 0 0 1.5em rgb(20, 30, 48);
+	display: inline-block;
+	margin: 15px;
+	padding: 20px;
+	width: 640px;
+
+	.customer-welcome {
+		padding-top: 20px;
+	}
+
+	.my-bookings {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+
+		.my-bookings-container {
+			display: block;
+		}
+
+		p {
+			border-bottom: 1px solid $accent;
+			margin-bottom: 15px;
+		}
+	}
 }

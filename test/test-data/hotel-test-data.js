@@ -85,5 +85,12 @@ export const bookingsTestData = [{
 		"date": "2020/01/20",
 		"roomNumber": 22,
 		"roomServiceCharges": []
+	},
+	{
+		"id": "5fwrgu4i7k55hl6tm",
+		"userID": 41,
+		"date": "2020/01/20",
+		"roomNumber": 3,
+		"roomServiceCharges": []
 	}
 ]

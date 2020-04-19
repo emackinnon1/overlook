@@ -1,7 +1,3 @@
-import booking from './Booking';
-// import 
-
-
 class User {
 	constructor(data) {
 		this.id = data.id;
@@ -26,7 +22,6 @@ class User {
 			})
 			return acc;
 		}, 0);
-
 		return Number(roomTotal.toFixed(2));
 	}
 
@@ -34,7 +29,7 @@ class User {
 		this.myBookings = bookingsData.filter(booking => booking.userID === this.id);
 	}
 
-	bookRoom() {
+	bookRoom(data) {
 		let booking = new Booking();
 	}
 }
