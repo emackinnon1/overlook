@@ -70,33 +70,34 @@ const dom = {
 	},
 
 	displayAvailableRoomsByDate(e) {
-		state.dateChoice = $('#booking-date-input').val();
+		state.updateState({dateChoice: `${$('#booking-date-input').val()}`});
 		let totalAvailableRooms = state.currentHotel.findAvailableRooms(state.dateChoice);
+
 		if (!totalAvailableRooms) {
-			$('.make-booking-dashboard').append(`
+			$('#booking-form').append(`
 				<p>Unfortunately, we have no rooms available for this date. To make up for it, our janitor,
-					Rory "Two-toes" Jenkins will give you a foot massage free of charge! Please call to schedule it at your 
+					Rory "Two-toes" Jenkins, will give you a foot massage free of charge! Please call to schedule it at your 
 					earliest convenience and show up to the appointed meeting spot behind the dumpster</p>
 			`);
 		}
 
-		$('.make-booking-dashboard').append(`
+		$('#booking-form').append(`
 			<p class="description">All bullet holes have been filled recently, so no more drafts at night!
 			If the windows aren't boarded up, they give a lovely view of the local landfill!</p>
 			<p>Click an image to choose one of our lovely rooms:</p>
 		`);
 
 		dom.findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
-			$('.make-booking-dashboard').append(`
+			$('#booking-form').append(`
 				<label class="image-radio">
 					<input type="radio" name="room" value="${type}">
-					<img id="${type}" src="./images/${type}.jpg" alt="" />
+					<img id="${type}" src="./images/${type}.jpg" alt=""/>
 				</label>
 				<p>${dom.capitalize(type)}</p>
 			`);
 		});
 
-		$('.make-booking-dashboard').append(`
+		$('#booking-form').append(`
 		<button type="button" class="submit-booking-button">Submit with these choices</button>
 	`);
 	},
@@ -119,14 +120,16 @@ const dom = {
 	},
 
 	submitBooking(e) {
-		let availableRooms = state.hotel.findAvailableRooms(state.dateChoice);
-		let roomType;
+		let totalAvailableRooms = state.currentHotel.findAvailableRooms(state.dateChoice);
+		let roomType = $(`form input[type="radio"]:checked`).val();
+		
 		if ($(e.target).attr('class') === 'submit-booking-button') {
-			state.currentUser.bookRoom({
-				userID: `${state.currentUser.id}`,
-				date: `${state.currentDate}`,
-				roomNumber: `${state.hotel}`
-			});
+			console.log(roomType)
+			// let booking = state.currentUser.bookRoom({
+			// 	userID: `${state.currentUser.id}`,
+			// 	date: `${state.currentDate}`,
+			// 	roomNumber: `${state.currentHotel.pickRoomNumber(totalAvailableRooms)}`
+			// });
 		}
 	},
 
