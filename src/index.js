@@ -1,15 +1,15 @@
 import $ from 'jquery';
 import dom from './dom.js';
-import state from './state';
-import User from './User';
+// import state from './state';
+// import User from './User';
 import Manager from './Manager';
 import Hotel from './Hotel';
 
 
-
-$(window).on('load', retrieveAllData)
-// $('.guest-sign-in').on('click', dom.handleUserLogin);
-$('.sign-in').on('click', dom.handleUserLogin)
+$(window).on('load', retrieveAllData);
+$('.sign-in').on('click', dom.handleUserLogin);
+$('.book-room-button').on('click', dom.displayMakeBookingDashboard);
+$('.search-rooms-button').on('click', dom.displayAvailableRoomsByDate);
 
 export let manager, hotel, roomsData;
 
@@ -27,14 +27,13 @@ function retrieveAllData() {
 function makeHotel(rooms, bookings, roomServices, users) {
 	manager = new Manager(users)
 	hotel = new Hotel(bookings, roomServices, rooms);
-// DELETE THE FOLLOWING LATER
-	let types = rooms.reduce((acc, room) => {
-		if (!acc[room.roomType]) {
-			acc[room.roomType] = 0;
-		}
-		acc[room.roomType]++;
-		return acc;
-	}, {})
-	console.log(types)
+}
 
+function updateBookings() {
+	// fetch bookings
+	//.then(updatestate)
+}
+
+function postNewBooking() {
+	
 }

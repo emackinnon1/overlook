@@ -31,20 +31,20 @@ class Hotel {
 	}
 
 	getTodaysBookings(date) {
-    return this.bookings.reduce((acc, booking) => {
-      if (booking.date === date) {
+		return this.bookings.reduce((acc, booking) => {
+			if (booking.date === date) {
 				acc.push(booking);
 			}
-      return acc;
-    }, []);
+			return acc;
+		}, []);
 	}
-	
+
 	findAvailabilityToday(date) {
 		return (this.rooms.length - this.getTodaysBookings(date).length)
 	}
 
 	findRevenueToday(date) {
-		return this.getTodaysBookings(date).reduce((acc, booking) => {
+		let total = this.getTodaysBookings(date).reduce((acc, booking) => {
 			this.rooms.forEach(room => {
 				if (booking.roomNumber === room.number) {
 					acc += room.costPerNight;
@@ -52,11 +52,25 @@ class Hotel {
 			})
 			return acc;
 		}, 0)
+
+		return Number(total.toFixed(2));
 	}
 
 	findOccupiedToday(date) {
 		let percent = (this.getTodaysBookings(date).length / this.rooms.length) * 100;
 		return Number(percent.toFixed(2));
+	}
+
+	findAvailableRooms(date) {
+		let bookedRooms = this.rooms.filter(room => {
+			return this.getTodaysBookings(date).find(booking => {
+				return room.number === booking.roomNumber;
+			});
+		});
+
+		return this.rooms.filter(room => {
+			return !bookedRooms.find(booked => room.number === booked.number);
+		});
 	}
 
 }
