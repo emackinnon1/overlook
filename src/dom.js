@@ -70,10 +70,18 @@ const dom = {
 	},
 
 	displayAvailableRoomsByDate(e) {
-		let totalAvailableRooms = state.currentHotel.findAvailableRooms($('#booking-date-input').val());
+		state.dateChoice = $('#booking-date-input').val();
+		let totalAvailableRooms = state.currentHotel.findAvailableRooms(state.dateChoice);
+		if (!totalAvailableRooms) {
+			$('.make-booking-dashboard').append(`
+				<p>Unfortunately, we have no rooms available for this date. To make up for it, our janitor,
+					Rory "Two-toes" Jenkins will give you a foot massage free of charge! Please call to schedule it at your 
+					earliest convenience and show up to the appointed meeting spot behind the dumpster</p>
+			`);
+		}
 
 		$('.make-booking-dashboard').append(`
-			<p>All bullet holes have been filled recently, so no more drafts at night!
+			<p class="description">All bullet holes have been filled recently, so no more drafts at night!
 			If the windows aren't boarded up, they give a lovely view of the local landfill!</p>
 			<p>Click an image to choose one of our lovely rooms:</p>
 		`);
@@ -103,12 +111,23 @@ const dom = {
 
 	findAvailableRoomTypes(listOfRooms) {
 		return listOfRooms.reduce((acc, room) => {
-			console.log(room.roomType)
 			if (!acc.includes(room.roomType)) {
 				acc.push(room.roomType);
 			}
 			return acc;
 		}, []);
+	},
+
+	submitBooking(e) {
+		let availableRooms = state.hotel.findAvailableRooms(state.dateChoice);
+		let roomType;
+		if ($(e.target).attr('class') === 'submit-booking-button') {
+			state.currentUser.bookRoom({
+				userID: `${state.currentUser.id}`,
+				date: `${state.currentDate}`,
+				roomNumber: `${state.hotel}`
+			});
+		}
 	},
 
 	displayManagerView(e) {

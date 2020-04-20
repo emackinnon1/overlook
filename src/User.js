@@ -45,6 +45,7 @@ class User {
 	bookRoom(data) {
 		let booking = new Booking(data);
 		this.myBookings.push(booking);
+		return booking;
 	}
 
 }

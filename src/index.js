@@ -10,6 +10,7 @@ $(window).on('load', retrieveAllData);
 $('.sign-in').on('click', dom.handleUserLogin);
 $('.book-room-button').on('click', dom.displayMakeBookingDashboard);
 $('.search-rooms-button').on('click', dom.displayAvailableRoomsByDate);
+$('.make-booking-dashboard').on('click', dom.submitBooking);
 
 export let manager, hotel, roomsData;
 
@@ -34,6 +35,3 @@ function updateBookings() {
 	//.then(updatestate)
 }
 
-function postNewBooking() {
-	
-}
