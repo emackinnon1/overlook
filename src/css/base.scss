@@ -91,9 +91,11 @@ header {
 	}
 
 	.book-room {
+		//mixin
 		border: 1px solid $accent;
 		border-radius: 6px;
 		box-shadow: 0 0 1.5em $accent;
+		//
 		float: right;
 		margin-right: 75px;
 		margin-top: 21px;
@@ -110,8 +112,33 @@ header {
 			border-bottom: 1px solid $accent;
 			margin-bottom: 15px;
 		}
+
+		.cancel-booking-button {
+			border: 1px solid $accent;
+			border-radius: 6px;
+			box-shadow: inset 0 0 0.5em 1px $accent;
+			display: inline;
+			width: 60px;
+		}
 	}
 }
+
+.make-booking-dashboard {
+	background-color: $dark-blue;
+	border: 1px solid $accent;
+	border-radius: 6px;
+	box-shadow: 0 0 1.5em rgb(20, 30, 48);
+	display: flex;
+	flex-direction: column;
+	margin: 15px;
+	padding: 20px;
+	width: 640px;
+
+	div {
+		margin: 10px;
+	}
+}
+
 .manager-view {
 
 	h2 {
@@ -139,5 +166,4 @@ header {
 			}
 		}
 	}
-	
 }

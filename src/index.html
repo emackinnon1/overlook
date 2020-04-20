@@ -1,71 +1,81 @@
 <!DOCTYPE html>
 <html lang="en-US">
+  <head>
+    <title>Red Rum</title>
+  </head>
 
-<head>
-	<title>Red Rum</title>
-</head>
-
-<body>
-	<div class="login-box">
-		<h2>Welcome to Overlook</h2>
-		<h4>Your unforgettable experience awaits!</h4>
-		<form action="">
-			<div class="user-box">
-				<input class="username" type="text" name="" required="">
-				<label>Username</label>
-			</div>
-			<div class="user-box">
-				<input class="password" type="password">
-				<label for="">Password</label>
-			</div>
-			<div class="sign-in a">
-				<span></span>
-				<span></span>
-				<span></span>
-				<span></span>
-				Sign In
-			</div>
-		</form>
-	</div>
-	<main class="manager-view hide">
-		<h2>Welcome back, most handsome manager ever!</h2>
-		<div>
-			<section class="manager-dashboard"></section>
-		</div>
-	</main>
-	<main class="user-view">
-		<header>
-			<h1>Overlook Hotel</h1>
-			<h4>The most luxurious hotel money can buy</h4>
-		</header>
-		<img class="entrance" src="./images/door.jpg" alt="">
-		<div class="amenities">
-			<p>Check out some of our unbelievable amenities:</p>
-			<img src="./images/hallway.jpg" alt="">
-			<p>Deluxe Luggage Carts</p>
-			<img src="./images/pool.jpg" alt="">
-			<p>Relaxing Pool</p>
-			<img src="./images/gym.jpg" alt="">
-			<p>World Class Gym</p>
-		</div>
-		<div class="menu">
-			<h3 class="menu-title">Tonight's 5-Star Menu</h3>
-			<img src="./images/breakfast.jpg" alt="">
-			<p>French Breakfast</p>
-			<img src="./images/lunch.jpg" alt="">
-			<p>Equadorian Peppered Apples</p>
-			<img src="./images/dinner.jpg" alt="">
-			<p>Venetian Bananas</p>
-			<img src="./images/dessert.jpg" alt="">
-			<p>Jello Spaghettio and Actual Fingers</p>
-		</div>
-		<section class="customer-main-dashboard">
-			<h2 class="customer-welcome"></h2>
-			<button class="book-room">Book a room</button>
-				<section class="my-bookings">
-				</section>
-		</section>
-	</main>
-</body>
-
+  <body>
+    <div class="login-box">
+      <h2>Welcome to Overlook</h2>
+      <h4>Your unforgettable experience awaits!</h4>
+      <form action="">
+        <div class="user-box">
+          <input class="username" type="text" name="" required="" />
+          <label>Username</label>
+        </div>
+        <div class="user-box">
+          <input class="password" type="password" />
+          <label for="">Password</label>
+        </div>
+        <div class="sign-in a">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Sign In
+        </div>
+      </form>
+    </div>
+    <main class="manager-view hide">
+      <h2>Welcome back, most handsome manager ever!</h2>
+      <div>
+        <section class="manager-dashboard"></section>
+      </div>
+    </main>
+    <main class="user-view hide">
+      <header>
+        <h1>Overlook Hotel</h1>
+        <h4>The most luxurious hotel money can buy</h4>
+      </header>
+      <img class="entrance" src="./images/door.jpg" alt="" />
+      <div class="amenities">
+        <p>Check out some of our unbelievable amenities:</p>
+        <img src="./images/hallway.jpg" alt="" />
+        <p>Deluxe Luggage Carts</p>
+        <img src="./images/pool.jpg" alt="" />
+        <p>Relaxing Pool</p>
+        <img src="./images/gym.jpg" alt="" />
+        <p>World Class Gym</p>
+      </div>
+      <div class="menu">
+        <h3 class="menu-title">Tonight's 5-Star Menu</h3>
+        <img src="./images/breakfast.jpg" alt="" />
+        <p>French Breakfast</p>
+        <img src="./images/lunch.jpg" alt="" />
+        <p>Equadorian Peppered Apples</p>
+        <img src="./images/dinner.jpg" alt="" />
+        <p>Venetian Bananas</p>
+        <img src="./images/dessert.jpg" alt="" />
+        <p>Jello Spaghettio and Actual Fingers</p>
+      </div>
+      <section class="customer-main-dashboard">
+        <h2 class="customer-welcome"></h2>
+        <button class="book-room">Book a room</button>
+				<section class="my-bookings"></section>
+			</section>
+			<section class="make-booking-dashboard">
+				<form id="booking-form">
+					<div>
+						<label for="date">Date</label>
+						<input type="date" id="booking-date" name="date" />
+					</div>
+					<div>
+						<label for="room-type">Type of Room</label>
+						<input type="radio" id="room-type" name="roomType" />
+					</div>
+          <button type="button" class="sleep-submit-button">Submit</button>
+        </form>
+			</section>
+    </main>
+  </body>
 </html>

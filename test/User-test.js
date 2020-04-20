@@ -38,15 +38,15 @@ describe('User', function() {
 		expect(manager.users[0].myBookings).to.deep.equal([hotel.bookings[0], hotel.bookings[1], hotel.bookings[2]])
 	});
 
-	it.only('should be able to book a room', function() {
+	it('should be able to book a room', function() {
 		manager.users[0].bookRoom({
 			userID: manager.users[0].id, 
-			date: `${moment().format('MMMM Do YYYY')}`, 
+			date: `${moment().format('YYYY/MM/DD')}`, 
 			roomNumber: 1, 
 			roomServiceCharges: []
 		});
 		expect(manager.users[0].myBookings[0].roomNumber).to.equal(1);
-		expect(manager.users[0].myBookings[0].date).to.equal(`${moment().format('MMMM Do YYYY')}`);
+		expect(manager.users[0].myBookings[0].date).to.equal(moment().format('YYYY/MM/DD'));
 		expect(manager.users[0].myBookings[0].roomServiceCharges).to.deep.equal([]);
 	});
 });

@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import moment from 'moment';
 
 import './css/base.scss';
 import './images/door.jpg';
@@ -7,14 +8,13 @@ import './images/lunch.jpg';
 import './images/dinner.jpg';
 import './images/dessert.jpg';
 import './images/pool.jpg';
-import './images/residential.jpg';
+import './images/hallway.jpg';
+import './images/gym.jpg';
 import './images/junior.jpg';
 import './images/suite.jpg';
 import './images/single.jpg';
-import './images/hallway.jpg';
-import './images/gym.jpg';
+import './images/residential.jpg';
 
-var moment = require('moment');
 
 import {
 	manager,
@@ -68,6 +68,7 @@ const dom = {
 		state.currentUser.myBookings.forEach(booking => {
 			$('.my-bookings').append(`
 				<p>Date: ${booking.date}, Room Type: ${booking.roomType}</p>
+				<button class="cancel-booking-button" id=${booking.id}>Cancel</button>
 			`);
 		});
 	},
@@ -79,8 +80,10 @@ const dom = {
 			<p>Total revenue for today: $${state.currentHotel.findRevenueToday(moment().format('YYYY/MM/DD'))}</p>
 			<p>Percentage of rooms occupied today: ${state.currentHotel.findOccupiedToday(moment().format('YYYY/MM/DD'))}%</p>
 		`);
-		let a = moment().format('YYYY/MM/DD');
+	},
 
+	print() {
+		console.log($('#booking-date').val());
 	}
 
 }

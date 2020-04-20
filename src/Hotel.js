@@ -31,14 +31,14 @@ class Hotel {
 	}
 
 	getTodaysBookings(date) {
-    return this.bookings.reduce((acc, booking) => {
-      if (booking.date === date) {
+		return this.bookings.reduce((acc, booking) => {
+			if (booking.date === date) {
 				acc.push(booking);
 			}
-      return acc;
-    }, []);
+			return acc;
+		}, []);
 	}
-	
+
 	findAvailabilityToday(date) {
 		return (this.rooms.length - this.getTodaysBookings(date).length)
 	}
@@ -59,6 +59,19 @@ class Hotel {
 	findOccupiedToday(date) {
 		let percent = (this.getTodaysBookings(date).length / this.rooms.length) * 100;
 		return Number(percent.toFixed(2));
+	}
+
+	findAvailableRooms(date) {
+		let bookedRooms = this.rooms.filter(room => {
+			return this.getTodaysBookings(date).find(booking => {
+				return room.number === booking.roomNumber;
+			})
+		});
+
+		return this.rooms.filter(room => {
+			return !bookedRooms.find(booked => room.number === booked.number);
+		});
+
 	}
 
 }

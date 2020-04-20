@@ -1,14 +1,12 @@
 import $ from 'jquery';
 import dom from './dom.js';
-import state from './state';
-import User from './User';
+// import state from './state';
+// import User from './User';
 import Manager from './Manager';
 import Hotel from './Hotel';
 
 
-
 $(window).on('load', retrieveAllData)
-// $('.guest-sign-in').on('click', dom.handleUserLogin);
 $('.sign-in').on('click', dom.handleUserLogin)
 
 export let manager, hotel, roomsData;
