@@ -65,13 +65,12 @@ class Hotel {
 		let bookedRooms = this.rooms.filter(room => {
 			return this.getTodaysBookings(date).find(booking => {
 				return room.number === booking.roomNumber;
-			})
+			});
 		});
 
 		return this.rooms.filter(room => {
 			return !bookedRooms.find(booked => room.number === booked.number);
 		});
-
 	}
 
 }

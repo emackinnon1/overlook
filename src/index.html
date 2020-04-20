@@ -10,11 +10,11 @@
       <h4>Your unforgettable experience awaits!</h4>
       <form action="">
         <div class="user-box">
-          <input class="username" type="text" name="" required="" />
+          <input class="username" type="text" value="customer1" name="" required="" />
           <label>Username</label>
         </div>
         <div class="user-box">
-          <input class="password" type="password" />
+          <input class="password" type="password" value="overlook2020"/>
           <label for="">Password</label>
         </div>
         <div class="sign-in a">
@@ -27,7 +27,7 @@
       </form>
     </div>
     <main class="manager-view hide">
-      <h2>Welcome back, most handsome manager ever!</h2>
+      <h2>Welcome back, you sexy beast!</h2>
       <div>
         <section class="manager-dashboard"></section>
       </div>
@@ -60,20 +60,16 @@
       </div>
       <section class="customer-main-dashboard">
         <h2 class="customer-welcome"></h2>
-        <button class="book-room">Book a room</button>
+        <button class="book-room-button">Book a room</button>
 				<section class="my-bookings"></section>
 			</section>
-			<section class="make-booking-dashboard">
+			<section class="make-booking-dashboard hide">
 				<form id="booking-form">
-					<div>
+					<section>
 						<label for="date">Date</label>
-						<input type="date" id="booking-date" name="date" />
-					</div>
-					<div>
-						<label for="room-type">Type of Room</label>
-						<input type="radio" id="room-type" name="roomType" />
-					</div>
-          <button type="button" class="sleep-submit-button">Submit</button>
+						<input type="input" id="booking-date-input" name="date"/>
+					</section>
+          <button type="button" class="search-rooms-button">Search</button>
         </form>
 			</section>
     </main>

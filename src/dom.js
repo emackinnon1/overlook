@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import moment from 'moment';
+import datepicker from 'js-datepicker';
 
 import './css/base.scss';
 import './images/door.jpg';
@@ -10,10 +11,10 @@ import './images/dessert.jpg';
 import './images/pool.jpg';
 import './images/hallway.jpg';
 import './images/gym.jpg';
-import './images/junior.jpg';
+import './images/junior suite.jpg';
 import './images/suite.jpg';
-import './images/single.jpg';
-import './images/residential.jpg';
+import './images/single room.jpg';
+import './images/residential suite.jpg';
 
 
 import {
@@ -21,6 +22,13 @@ import {
 	hotel
 } from './index'
 import state from './state';
+
+const searchDate = datepicker('#booking-date-input', {
+	formatter: (input, date, instance) => {
+		const value = date.toISOString().slice(0, 10).replace(/-/g, "/");
+		input.value = value;
+	}
+});
 
 
 const dom = {
@@ -49,20 +57,67 @@ const dom = {
 		state.currentHotel = stateData.currentHotel || state.currentHotel;
 	},
 
-	displayUserView() {
+	displayUserView(e) {
 		$('.login-box').addClass('hide');
 		$('.user-view').removeClass('hide');
 		$('.customer-welcome').text(`Welcome ${state.currentUser.name}`);
 		dom.displayMyBookings();
 	},
 
-	displayManagerView() {
+	displayMakeBookingDashboard(e) {
+		$('.customer-main-dashboard').addClass('hide');
+		$('.make-booking-dashboard').removeClass('hide');
+	},
+
+	displayAvailableRoomsByDate(e) {
+		let totalAvailableRooms = state.currentHotel.findAvailableRooms($('#booking-date-input').val());
+
+		$('.make-booking-dashboard').append(`
+			<p>All bullet holes have been filled recently, so no more drafts at night!
+			If the windows aren't boarded up, they give a lovely view of the local landfill!</p>
+			<p>Click an image to choose one of our lovely rooms:</p>
+		`);
+
+		dom.findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
+			$('.make-booking-dashboard').append(`
+				<label class="image-radio">
+					<input type="radio" name="room" value="${type}">
+					<img id="${type}" src="./images/${type}.jpg" alt="" />
+				</label>
+				<p>${dom.capitalize(type)}</p>
+			`);
+		});
+
+		$('.make-booking-dashboard').append(`
+		<button type="button" class="submit-booking-button">Submit with these choices</button>
+	`);
+	},
+
+	capitalize(str) {
+		str = str.split(" ");
+		for (var i = 0, x = str.length; i < x; i++) {
+			str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+		}
+		return str.join(" ");
+	},
+
+	findAvailableRoomTypes(listOfRooms) {
+		return listOfRooms.reduce((acc, room) => {
+			console.log(room.roomType)
+			if (!acc.includes(room.roomType)) {
+				acc.push(room.roomType);
+			}
+			return acc;
+		}, []);
+	},
+
+	displayManagerView(e) {
 		$('.login-box').addClass('hide');
 		$('.manager-view').removeClass('hide');
 		dom.displayManagerDashboard();
 	},
 
-	displayMyBookings() {
+	displayMyBookings(e) {
 		$('.my-bookings').append('<h3>My Bookings:</h3>');
 		$('.my-bookings').append(`<h3>Total spent: $${state.currentUser.findRoomTotal(state.currentHotel.rooms)}</h3>`);
 		state.currentUser.myBookings.forEach(booking => {
@@ -72,8 +127,8 @@ const dom = {
 			`);
 		});
 	},
-	
-	displayManagerDashboard() {
+
+	displayManagerDashboard(e) {
 		$('.manager-dashboard').append(`
 		<h3>${moment().format('MMMM Do YYYY')}</h3>
 			<p>Total rooms available today: ${state.currentHotel.findAvailabilityToday(moment().format('YYYY/MM/DD'))}</p>
@@ -82,9 +137,6 @@ const dom = {
 		`);
 	},
 
-	print() {
-		console.log($('#booking-date').val());
-	}
 
 }
 
