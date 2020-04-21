@@ -24,15 +24,17 @@ import {
 } from './index'
 import state from './state';
 
-// const searchDate = datepicker('#booking-date-input', {
-// 	formatter: (input, date, instance) => {
-// 		const value = date.toISOString().slice(0, 10).replace(/-/g, "/");
-// 		input.value = value;
-// 	}
-// });
-
 
 const dom = {
+
+	bindEventListeners() {
+		$('.sign-in').on('click', dom.handleUserLogin);
+		$('.book-room-button').on('click', dom.displayMakeBookingDashboard);
+		$('.search-rooms-button').on('click', dom.displayAvailableRoomsByDate);
+		$('.make-booking-dashboard').on('click', dom.submitBooking);
+		$('.searchbar').on('keyup', dom.filterByRoomType);
+		$('.view-bookings-button').on('click', dom.displayMyBookings);
+	},
 
 	handleUserLogin(e) {
 		if (manager.signIn($('.username').val(), $('.password').val())) {
@@ -53,24 +55,19 @@ const dom = {
 		}
 	},
 
-	updateState(stateData) {
-		state.currentUser = stateData.currentUser || state.currentUser;
-		state.currentHotel = stateData.currentHotel || state.currentHotel;
-	},
-
 	displayUserView(e) {
 		$('.login-box').addClass('hide');
 		$('.user-view').removeClass('hide');
+		$('.customer-main-dashboard').removeClass('hide');
+		$('.make-booking-dashboard').addClass('hide');
 		$('.customer-welcome').text(`Welcome ${state.currentUser.name}`);
-		dom.displayMyBookings();
 	},
 
-
-
-	displayMyBookings(e) {
+	displayMyBookings() {
 		$('.my-bookings').empty();
 		$('.make-booking-dashboard').addClass('hide');
 		$('.customer-main-dashboard').removeClass('hide');
+		state.updateCurrentUserBookings();
 		$('.my-bookings').append('<h3>My Bookings:</h3>');
 		$('.my-bookings').append(`<h3>Total spent: $${state.currentUser.findRoomTotal(state.currentHotel.rooms)}</h3>`);
 		state.currentUser.myBookings.forEach(booking => {
@@ -104,6 +101,7 @@ const dom = {
 			return;
 		}
 		dom.clearRoomSearchResults(e);
+		state.updateCurrentUserBookings();
 		let totalAvailableRooms = state.currentHotel.findAvailableRooms(state.dateChoice);
 
 		state.updateState({
@@ -123,11 +121,11 @@ const dom = {
 		`);
 		dom.findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
 			$('.room-search-results').append(`
-				<label class="image-radio">
+				<label id="${type.split(' ').join('-')}" class="image-radio">
 					<input type="radio" name="room" value="${type}">
-					<img id="${type}" src="./images/${type}.jpg" alt=""/>
+					<img class="${type}" src="./images/${type}.jpg" alt=""/>
+					<p>${dom.capitalize(type)}</p>
 				</label>
-				<p>${dom.capitalize(type)}</p>
 			`);
 		});
 		$('.room-search-results').append(`
@@ -136,7 +134,14 @@ const dom = {
 	},
 
 	filterByRoomType() {
-
+		if ($('.searchbar').val() == '') {
+			$('.image-radio').removeClass('hide');
+		}
+		if ($('.searchbar').val() !== '') {
+			let searchString = $('.searchbar').val().toLowerCase().split(' ').join('-');
+			$('.image-radio').addClass('hide');
+			$(`#${searchString}`).removeClass('hide');
+		}
 	},
 
 	capitalize(str) {
@@ -167,10 +172,12 @@ const dom = {
 					date: `${state.dateChoice}`,
 					roomNumber: state.currentHotel.pickRoomNumber(totalAvailableRooms, roomType)
 				});
-				dom.displayMyBookings(e)
+				dom.displayUserView(e);
 				dom.clearRoomSearchResults(e);
 				console.log(booking)
 				postBooking(booking);
+				console.log(state.currentHotel.bookings);
+				$('.my-bookings').empty();
 			} else {
 				alert('Please click a room picture to make a choice');
 			}

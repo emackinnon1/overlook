@@ -44,7 +44,7 @@ describe('Hotel', function () {
 		expect(hotel.findAvailableRooms('2020/01/20')[3]).to.deep.equal(hotel.rooms[4]);
 	});
 
-	it.only('should pick a room number from the available rooms according to the user\'s choice', function() {
+	it('should pick a room number from the available rooms according to the user\'s choice', function() {
 		let availableRoomsList = hotel.findAvailableRooms('2020/01/20');
 
 		expect(hotel.pickRoomNumber(availableRoomsList, 'single room')).to.equal(12);

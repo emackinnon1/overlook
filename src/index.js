@@ -1,17 +1,8 @@
 import $ from 'jquery';
 import dom from './dom.js';
-// import state from './state';
-// import User from './User';
 import Manager from './Manager';
 import Hotel from './Hotel';
-
-
-$(window).on('load', retrieveAllData);
-$('.sign-in').on('click', dom.handleUserLogin);
-$('.book-room-button').on('click', dom.displayMakeBookingDashboard);
-$('.search-rooms-button').on('click', dom.displayAvailableRoomsByDate);
-$('.make-booking-dashboard').on('click', dom.submitBooking);
-// $('.searchbar').on('keyup', dom.filterByRoomType);
+import state from './state.js';
 
 export let manager, hotel, roomsData;
 
@@ -23,12 +14,14 @@ function retrieveAllData() {
 			fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users").then(response => response.json())
 		])
 		.then(data => makeHotel(data[0].rooms, data[1].bookings, data[2].roomServices, data[3].users))
+		.then(dom.bindEventListeners())
 		.catch(error => console.log(error));
 }
 
 function makeHotel(rooms, bookings, roomServices, users) {
 	manager = new Manager(users)
 	hotel = new Hotel(bookings, roomServices, rooms);
+	state.updateState({currentHotel: hotel});
 }
 
 export function postBooking(post) {
@@ -40,12 +33,17 @@ export function postBooking(post) {
 		body: JSON.stringify(post)
 	})
 	.then(response => response.json())
-	.then(data => console.log(data))
+	.then(setTimeout(updateHotelBookings, 300))
 	.catch(err => console.error(err))
 }
 
-function updateHotelBookings() {
-	// fetch bookings
-	//.then(updatestate)
+export function updateHotelBookings() {
+	fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings")
+	.then(response => response.json())
+	.then(data => state.currentHotel.bookings = data.bookings)
+	.then(state.updateCurrentUserBookings())
+	.catch(err => console.error(err))
 }
+
+retrieveAllData();
 
