@@ -196,12 +196,18 @@ const dom = {
 	},
 
 	displayManagerDashboard(e) {
-		$('.manager-dashboard').append(`
+		$('.manager-dashboard-info').append(`
 		<h3>${moment().format('MMMM Do YYYY')}</h3>
 			<p>Total rooms available today: ${state.currentHotel.findAvailabilityToday(moment().format('YYYY/MM/DD'))}</p>
 			<p>Total revenue for today: $${state.currentHotel.findRevenueToday(moment().format('YYYY/MM/DD'))}</p>
 			<p>Percentage of rooms occupied today: ${state.currentHotel.findOccupiedToday(moment().format('YYYY/MM/DD'))}%</p>
-		`);
+			<h4>To do today:</h4>
+			<ul>
+				<li>Tell Pete to stop being so sweaty around the customers</li>
+				<li>Inform Linda that she needs to fight with her boyfriend off company grounds</li>
+				<li>Tell the guests in room 23 to stop watching Sesame Street so loudly at 4am</li>
+			</ul>
+			`);
 	},
 
 }

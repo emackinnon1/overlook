@@ -19,7 +19,8 @@ describe('Manager', function() {
 		expect(manager).to.be.an.instanceOf(Manager);
 	});
 	
-	it('should find total rooms available for today\'s date', function() {
-		
+	it.only('should find a user by name', function() {
+		console.log(manager.users[1])
+		manager.findUser('Rocio Schuster').to.deep.equal(manager.users[1]);
 	});
 });

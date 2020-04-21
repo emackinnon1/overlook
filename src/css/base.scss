@@ -222,10 +222,9 @@ header {
   }
 
   div {
-    display: flex;
-    justify-content: center;
+		float: left;
 
-    .manager-dashboard {
+    .manager-dashboard-info {
       //mixin
       background-color: $dark-blue;
       border: 1px solid $accent;
@@ -240,7 +239,12 @@ header {
       p {
         border-bottom: 1px solid $accent;
         margin-bottom: 15px;
-      }
+			}
+			
+			li {
+				text-align: left;
+				margin-bottom: 5px;
+			}
     }
   }
 }
