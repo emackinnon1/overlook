@@ -24,15 +24,16 @@ import {
 } from './index'
 import state from './state';
 
-// const searchDate = datepicker('#booking-date-input', {
-// 	formatter: (input, date, instance) => {
-// 		const value = date.toISOString().slice(0, 10).replace(/-/g, "/");
-// 		input.value = value;
-// 	}
-// });
-
 
 const dom = {
+
+	bindEventListeners() {
+$('.sign-in').on('click', dom.handleUserLogin);
+$('.book-room-button').on('click', dom.displayMakeBookingDashboard);
+$('.search-rooms-button').on('click', dom.displayAvailableRoomsByDate);
+$('.make-booking-dashboard').on('click', dom.submitBooking);
+$('.searchbar').on('keyup', dom.filterByRoomType);
+	},
 
 	handleUserLogin(e) {
 		if (manager.signIn($('.username').val(), $('.password').val())) {
@@ -123,11 +124,11 @@ const dom = {
 		`);
 		dom.findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
 			$('.room-search-results').append(`
-				<label class="image-radio">
+				<label id="${type.split(' ').join('-')}" class="image-radio">
 					<input type="radio" name="room" value="${type}">
-					<img id="${type}" src="./images/${type}.jpg" alt=""/>
+					<img class="${type}" src="./images/${type}.jpg" alt=""/>
+					<p>${dom.capitalize(type)}</p>
 				</label>
-				<p>${dom.capitalize(type)}</p>
 			`);
 		});
 		$('.room-search-results').append(`
@@ -136,7 +137,14 @@ const dom = {
 	},
 
 	filterByRoomType() {
-
+		if($('.searchbar').val() == '') {
+			$('.image-radio').removeClass('hide');
+		}
+		if ($('.searchbar').val() !== '') {
+			let searchString = $('.searchbar').val().toLowerCase().split(' ').join('-');
+			$('.image-radio').addClass('hide');
+			$(`#${searchString}`).removeClass('hide');
+		}
 	},
 
 	capitalize(str) {

@@ -5,14 +5,6 @@ import dom from './dom.js';
 import Manager from './Manager';
 import Hotel from './Hotel';
 
-
-$(window).on('load', retrieveAllData);
-$('.sign-in').on('click', dom.handleUserLogin);
-$('.book-room-button').on('click', dom.displayMakeBookingDashboard);
-$('.search-rooms-button').on('click', dom.displayAvailableRoomsByDate);
-$('.make-booking-dashboard').on('click', dom.submitBooking);
-// $('.searchbar').on('keyup', dom.filterByRoomType);
-
 export let manager, hotel, roomsData;
 
 function retrieveAllData() {
@@ -23,6 +15,7 @@ function retrieveAllData() {
 			fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users").then(response => response.json())
 		])
 		.then(data => makeHotel(data[0].rooms, data[1].bookings, data[2].roomServices, data[3].users))
+		.then(dom.bindEventListeners())
 		.catch(error => console.log(error));
 }
 
@@ -45,7 +38,8 @@ export function postBooking(post) {
 }
 
 function updateHotelBookings() {
-	// fetch bookings
-	//.then(updatestate)
+	fetch()
 }
+
+retrieveAllData();
 
