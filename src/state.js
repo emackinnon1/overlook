@@ -9,9 +9,8 @@ const state = {
 	updateState: (stateData) => {
 		state.currentUser = stateData.currentUser || state.currentUser;
 		state.currentHotel = stateData.currentHotel || state.currentHotel;
-		state.currentDate = moment().format('YYYY/MM/DD');
+		state.dateChoice = stateData.dateChoice || state.dateChoice;
 		state.updateCurrentUserBookings();
-		console.log(state);
 	},
 
 	updateCurrentUserBookings() {

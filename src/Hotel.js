@@ -73,6 +73,11 @@ class Hotel {
 		});
 	}
 
+	pickRoomNumber(availableRooms, chosenRoomType) {
+		let pickedRoom = availableRooms.find(room => room.roomType === chosenRoomType);
+		return pickedRoom.number;
+	}
+
 }
 
 export default Hotel;

@@ -10,6 +10,8 @@ $(window).on('load', retrieveAllData);
 $('.sign-in').on('click', dom.handleUserLogin);
 $('.book-room-button').on('click', dom.displayMakeBookingDashboard);
 $('.search-rooms-button').on('click', dom.displayAvailableRoomsByDate);
+$('.make-booking-dashboard').on('click', dom.submitBooking);
+// $('.searchbar').on('keyup', dom.filterByRoomType);
 
 export let manager, hotel, roomsData;
 
@@ -29,11 +31,21 @@ function makeHotel(rooms, bookings, roomServices, users) {
 	hotel = new Hotel(bookings, roomServices, rooms);
 }
 
-function updateBookings() {
+export function postBooking(post) {
+	fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(post)
+	})
+	.then(response => response.json())
+	.then(data => console.log(data))
+	.catch(err => console.error(err))
+}
+
+function updateHotelBookings() {
 	// fetch bookings
 	//.then(updatestate)
 }
 
-function postNewBooking() {
-	
-}

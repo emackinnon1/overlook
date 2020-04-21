@@ -36,11 +36,18 @@ describe('Hotel', function () {
 		expect(hotel.findOccupiedToday('2020/01/20')).to.equal(33.33)
 	});
 
-	it.only('should find available rooms for a date', function() {
+	it('should find available rooms for a date', function() {
 		expect(hotel.findAvailableRooms('2020/01/20').length).to.equal(4);
 		expect(hotel.findAvailableRooms('2020/01/20')[0]).to.deep.equal(hotel.rooms[0]);
 		expect(hotel.findAvailableRooms('2020/01/20')[1]).to.deep.equal(hotel.rooms[1]);
 		expect(hotel.findAvailableRooms('2020/01/20')[2]).to.deep.equal(hotel.rooms[3]);
 		expect(hotel.findAvailableRooms('2020/01/20')[3]).to.deep.equal(hotel.rooms[4]);
 	});
+
+	it.only('should pick a room number from the available rooms according to the user\'s choice', function() {
+		let availableRoomsList = hotel.findAvailableRooms('2020/01/20');
+
+		expect(hotel.pickRoomNumber(availableRoomsList, 'single room')).to.equal(12);
+	});
+
 });
