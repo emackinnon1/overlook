@@ -41,7 +41,7 @@ header {
   flex-direction: column;
   justify-content: center;
   margin-top: 70px;
-  width: 28%;
+	width: 28%;
 
   img {
     //mixin
@@ -88,12 +88,22 @@ header {
   //
   display: inline-block;
   margin: 15px;
-  padding: 20px;
+	padding: 20px;
+	text-align: center;
   width: 640px;
 
   .customer-welcome {
     padding-top: 20px;
-  }
+	}
+	
+	.view-bookings-button {
+		    //mixin
+				border: 1px solid $accent;
+				border-radius: 6px;
+				box-shadow: 0 0 1.5em $accent;
+				//
+				cursor: pointer;
+	}
 
   .book-room-button {
     //mixin
@@ -102,16 +112,17 @@ header {
     box-shadow: 0 0 1.5em $accent;
     //
     cursor: pointer;
-    float: right;
-    margin-right: 75px;
-    margin-top: 21px;
+    // float: right;
+    // margin-right: 75px;
+    // margin-top: 21px;
     width: 100px;
   }
 
   .my-bookings {
     display: flex;
-    justify-content: center;
     flex-direction: column;
+		justify-content: center;
+		text-align: left;
 
     p {
       border-bottom: 1px solid $accent;
@@ -153,6 +164,7 @@ header {
 		text-align: center;
 		
 		.search-rooms-button {
+			cursor: pointer;
 			margin-bottom: 20px;
 		}
   }

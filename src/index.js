@@ -1,9 +1,8 @@
 import $ from 'jquery';
 import dom from './dom.js';
-// import state from './state';
-// import User from './User';
 import Manager from './Manager';
 import Hotel from './Hotel';
+import state from './state.js';
 
 export let manager, hotel, roomsData;
 
@@ -22,6 +21,7 @@ function retrieveAllData() {
 function makeHotel(rooms, bookings, roomServices, users) {
 	manager = new Manager(users)
 	hotel = new Hotel(bookings, roomServices, rooms);
+	state.updateState({currentHotel: hotel});
 }
 
 export function postBooking(post) {
@@ -33,12 +33,16 @@ export function postBooking(post) {
 		body: JSON.stringify(post)
 	})
 	.then(response => response.json())
-	.then(data => console.log(data))
+	.then(setTimeout(updateHotelBookings, 300))
 	.catch(err => console.error(err))
 }
 
-function updateHotelBookings() {
-	fetch()
+export function updateHotelBookings() {
+	fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings")
+	.then(response => response.json())
+	.then(data => state.currentHotel.bookings = data.bookings)
+	.then(state.updateCurrentUserBookings())
+	.catch(err => console.error(err))
 }
 
 retrieveAllData();
