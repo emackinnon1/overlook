@@ -30,7 +30,20 @@ function makeHotel(rooms, bookings, roomServices, users) {
 	hotel = new Hotel(bookings, roomServices, rooms);
 }
 
-function updateBookings() {
+export function postBooking(post) {
+	fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(post)
+	})
+	.then(response => response.json())
+	.then(data => console.log(data))
+	.catch(err => console.error(err))
+}
+
+function updateHotelBookings() {
 	// fetch bookings
 	//.then(updatestate)
 }

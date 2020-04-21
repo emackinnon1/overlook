@@ -19,16 +19,17 @@ import './images/residential suite.jpg';
 
 import {
 	manager,
-	hotel
+	hotel,
+	postBooking
 } from './index'
 import state from './state';
 
-const searchDate = datepicker('#booking-date-input', {
-	formatter: (input, date, instance) => {
-		const value = date.toISOString().slice(0, 10).replace(/-/g, "/");
-		input.value = value;
-	}
-});
+// const searchDate = datepicker('#booking-date-input', {
+// 	formatter: (input, date, instance) => {
+// 		const value = date.toISOString().slice(0, 10).replace(/-/g, "/");
+// 		input.value = value;
+// 	}
+// });
 
 
 const dom = {
@@ -64,7 +65,10 @@ const dom = {
 		dom.displayMyBookings();
 	},
 
+
+
 	displayMyBookings(e) {
+		$('.my-bookings').empty();
 		$('.make-booking-dashboard').addClass('hide');
 		$('.customer-main-dashboard').removeClass('hide');
 		$('.my-bookings').append('<h3>My Bookings:</h3>');
@@ -80,13 +84,28 @@ const dom = {
 	displayMakeBookingDashboard(e) {
 		$('.customer-main-dashboard').addClass('hide');
 		$('.make-booking-dashboard').removeClass('hide');
+		dom.setDateFromNow();
+	},
+
+	setDateFromNow() {
+		let searchDate = datepicker('#booking-date-input', {
+			formatter: (input, date, minDate) => {
+				minDate = new Date();
+				const value = date.toISOString().slice(0, 10).replace(/-/g, "/");
+				input.value = value;
+			},
+			minDate: new Date()
+		});
 	},
 
 	displayAvailableRoomsByDate(e) {
+		// if ()
 		dom.clearRoomSearchResults(e);
 		let totalAvailableRooms = state.currentHotel.findAvailableRooms(state.dateChoice);
-		
-		state.updateState({dateChoice: $('#booking-date-input').val()});
+
+		state.updateState({
+			dateChoice: $('#booking-date-input').val()
+		});
 		if (!totalAvailableRooms) {
 			$('.room-search-results').append(`
 				<p>Unfortunately, we have no rooms available for this date. To make up for it, our janitor,
@@ -133,21 +152,22 @@ const dom = {
 	submitBooking(e) {
 		let totalAvailableRooms = state.currentHotel.findAvailableRooms(state.dateChoice);
 		let roomType = $(`form input[type="radio"]:checked`).val();
-		
+
 		if ($(e.target).attr('class') === 'submit-booking-button') {
 			if (roomType) {
 				let booking = state.currentUser.bookRoom({
-					userID: `${state.currentUser.id}`,
-					date: `${state.currentDate}`,
-					roomNumber: roomType
+					userID: state.currentUser.id,
+					date: `${state.dateChoice}`,
+					roomNumber: state.currentHotel.pickRoomNumber(totalAvailableRooms, roomType)
 				});
 				dom.displayMyBookings(e)
 				dom.clearRoomSearchResults(e);
+				console.log(booking)
+				postBooking(booking);
 			} else {
 				alert('Please click a room picture to make a choice');
 			}
 		}
-
 	},
 
 	clearRoomSearchResults() {
@@ -161,7 +181,6 @@ const dom = {
 		dom.displayManagerDashboard();
 	},
 
-
 	displayManagerDashboard(e) {
 		$('.manager-dashboard').append(`
 		<h3>${moment().format('MMMM Do YYYY')}</h3>
@@ -170,7 +189,6 @@ const dom = {
 			<p>Percentage of rooms occupied today: ${state.currentHotel.findOccupiedToday(moment().format('YYYY/MM/DD'))}%</p>
 		`);
 	},
-
 
 }
 
