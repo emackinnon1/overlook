@@ -1,10 +1,10 @@
-import User from './User'
+import User from './User';
+import { capitalize } from './util';
 
 class Manager {
 	constructor(data) {
 		this.username = 'manager';
 		this.password = 'overlook2020';
-		this.allBookings = [];
 		this.users = this.makeUsers(data);
 	}
 
@@ -20,6 +20,13 @@ class Manager {
 		if (usernameInput === this.username && passwordInput === this.password) {
 			return true;
 		}
+	}
+
+	findUserByName(name) {
+		let searchTerm = capitalize(name.toLowerCase());
+		return this.users.find(user => {
+			return user.name === searchTerm;
+		});
 	}
 }
 

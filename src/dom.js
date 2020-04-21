@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import moment from 'moment';
 import datepicker from 'js-datepicker';
+import { capitalize } from './util';
 
 import './css/base.scss';
 import './images/door.jpg';
@@ -124,7 +125,7 @@ const dom = {
 				<label id="${type.split(' ').join('-')}" class="image-radio">
 					<input type="radio" name="room" value="${type}">
 					<img class="${type}" src="./images/${type}.jpg" alt=""/>
-					<p>${dom.capitalize(type)}</p>
+					<p>${capitalize(type)}</p>
 				</label>
 			`);
 		});
@@ -144,13 +145,13 @@ const dom = {
 		}
 	},
 
-	capitalize(str) {
-		str = str.split(" ");
-		for (var i = 0, x = str.length; i < x; i++) {
-			str[i] = str[i][0].toUpperCase() + str[i].substr(1);
-		}
-		return str.join(" ");
-	},
+	// capitalize(str) {
+	// 	str = str.split(" ");
+	// 	for (var i = 0, x = str.length; i < x; i++) {
+	// 		str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+	// 	}
+	// 	return str.join(" ");
+	// },
 
 	findAvailableRoomTypes(listOfRooms) {
 		return listOfRooms.reduce((acc, room) => {
