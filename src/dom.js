@@ -99,7 +99,10 @@ const dom = {
 	},
 
 	displayAvailableRoomsByDate(e) {
-		// if ()
+		if ($('#booking-date-input').val() === '') {
+			alert('Please pick a date');
+			return;
+		}
 		dom.clearRoomSearchResults(e);
 		let totalAvailableRooms = state.currentHotel.findAvailableRooms(state.dateChoice);
 
@@ -130,6 +133,10 @@ const dom = {
 		$('.room-search-results').append(`
 		<button type="button" class="submit-booking-button">Submit with these choices</button>
 	`);
+	},
+
+	filterByRoomType() {
+
 	},
 
 	capitalize(str) {

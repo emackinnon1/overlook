@@ -11,6 +11,7 @@ $('.sign-in').on('click', dom.handleUserLogin);
 $('.book-room-button').on('click', dom.displayMakeBookingDashboard);
 $('.search-rooms-button').on('click', dom.displayAvailableRoomsByDate);
 $('.make-booking-dashboard').on('click', dom.submitBooking);
+// $('.searchbar').on('keyup', dom.filterByRoomType);
 
 export let manager, hotel, roomsData;
 
