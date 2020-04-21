@@ -11,7 +11,6 @@ const state = {
 		state.currentHotel = stateData.currentHotel || state.currentHotel;
 		state.dateChoice = stateData.dateChoice || state.dateChoice;
 		state.updateCurrentUserBookings();
-		console.log(state);
 	},
 
 	updateCurrentUserBookings() {
