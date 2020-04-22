@@ -212,6 +212,7 @@ const dom = {
 	},
 
 	findUser(e) {
+		console.log(state.currentHotel.bookings)
 		let searchInput = $('.search-users').val();
 		let searchedUser = state.currentUser.findUserByName(searchInput);
 		searchedUser.findMyBookings(state.currentHotel.bookings, state.currentHotel.rooms);
@@ -219,11 +220,11 @@ const dom = {
 	},
 
 	displaySearchedUsersBookings(user) {
-		$('.manager-dashboard-main').append(`<h3>${user.name}'s bookings:</h3>`);
-		$('.manager-dashboard-main').append(`<h3>Total spent: $${user.findRoomTotal(state.currentHotel.rooms)}</h3>`);
-		console.log(user)
+		$('.search-user-results').empty();
+		$('.search-user-results').append(`<h3>${user.name}'s bookings:</h3>`);
+		$('.search-user-results').append(`<h3>Total spent: $${user.findRoomTotal(state.currentHotel.rooms)}</h3>`);
 		user.myBookings.forEach(booking => {
-			$('.manager-dashboard-main').append(`
+			$('.search-user-results').append(`
 				<p>Date: ${booking.date}, Room Type: ${booking.roomType}</p>
 				<button class="cancel-booking-button" id=${booking.id} data-date="${booking.date}">Cancel Booking</button>
 			`);
@@ -241,6 +242,8 @@ const dom = {
 				let bookingId = $(e.target).attr('id');
 				let bookingToCancel = state.currentHotel.findBookingByID(bookingId);
 				deleteBooking(bookingToCancel);
+				updateHotelBookings();
+				setTimeout(dom.findUser, 600);
 			}
 		}
 	}
