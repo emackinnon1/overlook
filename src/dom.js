@@ -206,14 +206,13 @@ const dom = {
 			<ul>
 				<li>Tell Pete to stop being so sweaty around the customers</li>
 				<li>Inform Linda that she needs to fight with her boyfriend off company grounds</li>
-				<li>Tell the guests in room 23 to stop watching Sesame Street so loudly at 4am and singing along</li>
+				<li>Tell the guests in room 23 to stop watching Sesame Street at 4am and singing along so loudly</li>
 			</ul>
 			`);
 	},
 
 	findUser(e) {
 		let searchInput = $('.search-users').val();
-		console.log(searchInput)
 		let searchedUser = state.currentUser.findUserByName(searchInput);
 		searchedUser.findMyBookings(state.currentHotel.bookings, state.currentHotel.rooms);
 		dom.displaySearchedUsersBookings(searchedUser)
@@ -238,10 +237,10 @@ const dom = {
 	cancelBooking(e) {
 		if ($(e.target).hasClass('cancel-booking-button')) {
 			let cancelDate = $(e.target).data('date').split('/').join('-');
-			if (moment(cancelDate).diff(moment())) {
-				cancelDate = $(e.target).data('date');
-				let bookingToCancel = $(e.target).attr('id');
-				
+			if (moment(cancelDate).diff(moment()) > 0) {
+				let bookingId = $(e.target).attr('id');
+				let bookingToCancel = state.currentHotel.findBookingByID(bookingId);
+				deleteBooking(bookingToCancel);
 			}
 		}
 	}

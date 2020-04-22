@@ -79,7 +79,7 @@ class Hotel {
 	}
 
 	findBookingByID(id) {
-		return this.bookings.find(booking => booking.id === id)
+		return this.bookings.find(booking => booking.id == id)
 	}
 
 }
