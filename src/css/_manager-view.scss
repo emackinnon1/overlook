@@ -47,19 +47,26 @@
 		.search-user-dashboard {
 			display: flex;
 			flex-direction: column;
+
+			.search-user-results {
+				position: relative;
+				top: -120px;
+			}
+			
+			.search-users {
+				margin-bottom: 15px;
+				width: 150px;
+			}
+			
+			.search-users-button {
+				border: 1px solid $accent;
+				border-radius: 6px;
+				box-shadow: 0 0 1.5em $accent;
+				width: 70px;
+			}
 		}
 
-		.search-users {
-			margin-bottom: 15px;
-			width: 150px;
-		}
 
-		.search-users-button {
-			border: 1px solid $accent;
-			border-radius: 6px;
-			box-shadow: 0 0 1.5em $accent;
-			width: 70px;
-		}
 
 
 		button {
@@ -82,21 +89,38 @@
 				display: block;
 				font-size: 12px;
 			}
-			
+
 			input {
 				margin-top: 15px;
 				margin-bottom: 10px;
 			}
 
-			.make-booking-manager-button {
-				border: 1px solid $accent;
-				border-radius: 6px;
-				box-shadow: 0 0 0.5em $accent;
-				width: 150px;
-			}
 
 			.manager-date-container {
+				position: relative;
+				top: -45px;
+				z-index: 10000;
 
+				.make-booking-manager-button {
+					border: 1px solid $accent;
+					border-radius: 6px;
+					box-shadow: 0 0 0.5em $accent;
+					margin-top: 20px;
+					width: 150px;
+				}
+
+				.manager-date-search-button {
+					border: 1px solid $accent;
+					border-radius: 6px;
+					box-shadow: 0 0 0.5em $accent;
+					margin-top: 15px;
+				}
+
+				#manager-room-selection {
+					display: block;
+					margin-top: 15px;
+					width: 115px;
+				}
 			}
 		}
 	}

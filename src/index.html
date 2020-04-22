@@ -47,13 +47,21 @@
           />
           <button class="search-users-button" type="button">Search</button>
           <section class="manager-booking-dashboard">
-            <button class="make-booking-manager-button" type="button">
-              Make booking for this user
-						</button>
-						<section class="manager-date-container">
-							<input type="input" id="manager-date-input" name="date" />
-							<label for="date">Date (YYYY/MM/DD)</label>
-						</section>
+            <section class="manager-date-container">
+              <input type="input" id="manager-date-input" name="date" />
+              <label for="date">Date (YYYY/MM/DD)</label>
+              <button class="manager-date-search-button">
+                Search for rooms
+              </button>
+              <select name="room-selection" id="manager-room-selection">
+                <option selected="selected" disabled="disabled">
+                  Select a room
+                </option>
+              </select>
+              <button class="make-booking-manager-button" type="button">
+                Make booking for this user
+              </button>
+            </section>
           </section>
           <section class="search-user-results"></section>
         </section>

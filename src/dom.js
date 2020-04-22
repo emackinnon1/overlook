@@ -42,7 +42,8 @@ const dom = {
 		$('.view-bookings-button').on('click', dom.displayMyBookings);
 		$('.search-users-button').on('click', dom.findUser);
 		$('.manager-dashboard-main').on('click', dom.cancelBooking);
-
+		$('.manager-date-search-button').on('click', dom.showBookingOptionsForUser);
+		$('#manager-date-input').on('change input', dom.showBookingOptionsForUser);
 	},
 
 	handleUserLogin(e) {
@@ -221,7 +222,6 @@ const dom = {
 				<button class="cancel-booking-button" id=${booking.id} data-date="${booking.date}">Cancel Booking</button>
 			`);
 		});
-		dom.showBookingOptionsForUser();
 	},
 
 	setManagerDatePicker() {
@@ -235,24 +235,23 @@ const dom = {
 		});
 	},
 
-	showBookingOptionsForUser() {
-if ($('.search-users').val() === '') {
+	showBookingOptionsForUser(e) {
+		if ($('.search-users').val() === '') {
 			alert('Please find a user');
 		}
-		state.updateCurrentUserBookings();
+		state.updateState({dateChoice: $('#manager-date-input').val()});
 		let totalAvailableRooms = state.currentHotel.findAvailableRooms(state.dateChoice);
-		state.updateState({dateChoice: $('#booking-date-input').val()});
 		if (!totalAvailableRooms) {
 			alert('No available rooms!  Choose another date.')
 		}
-		findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
-				$('.manager-booking-dashboard').append(`
-				<label id="${type.split(' ').join('-')}" class="image-radio">
-					<input type="radio" name="room" value="${type}">
-					<p>${capitalize(type)}</p>
-				</label>
+		if ($('#manager-room-selection').children().length < 2){
+			console.log($('#manager-room-selection').children().length)
+			findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
+				$('#manager-room-selection').append(`
+					<option id="${type.split(' ').join('-')} value="${type}">${capitalize(type)}</option>
 				`);
-		});
+			});
+		}
 	},
 
 	cancelBooking(e) {
@@ -266,6 +265,10 @@ if ($('.search-users').val() === '') {
 				setTimeout(dom.findUser, 600);
 			}
 		}
+	},
+
+	managerPostBooking(e) {
+		
 	}
 
 }
