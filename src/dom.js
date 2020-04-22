@@ -237,12 +237,13 @@ const dom = {
 
 	cancelBooking(e) {
 		if ($(e.target).hasClass('cancel-booking-button')) {
-			let cancelDate = $(e.target).data('date');
-			let bookingToCancel = state.currentHotel.getBookingsByDate(cancelDate)
-			console.log(bookingToCancel)
+			let cancelDate = $(e.target).data('date').split('/').join('-');
+			if (moment(cancelDate).diff(moment())) {
+				cancelDate = $(e.target).data('date');
+				let bookingToCancel = $(e.target).attr('id');
+				
+			}
 		}
-		// let bookingDate = e.target.data('date');
-		// if ()
 	}
 
 }

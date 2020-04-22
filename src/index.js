@@ -46,7 +46,17 @@ export function updateHotelBookings() {
 }
 
 export function deleteBooking() {
-	
+		fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(post)
+		})
+		.then(response => response.json())
+		.then(setTimeout(updateHotelBookings, 300))
+		.catch(err => console.error(err))
+
 }
 
 retrieveAllData();

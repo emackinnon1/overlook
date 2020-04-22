@@ -25,9 +25,7 @@ class Manager {
 
 	findUserByName(name) {
 		let searchTerm = capitalize(name.toLowerCase());
-		return this.users.find(user => {
-			return user.name === searchTerm;
-		});
+		return this.users.find(user => user.name === searchTerm);
 	}
 
 }

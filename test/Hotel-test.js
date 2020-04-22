@@ -50,4 +50,8 @@ describe('Hotel', function () {
 		expect(hotel.pickRoomNumber(availableRoomsList, 'single room')).to.equal(12);
 	});
 
+	it('should find booking by id', function() {
+		expect(hotel.findBookingByID('5fwrgu4i7k55hl6x8')).to.deep.equal(hotel.bookings[1]);
+	});
+
 });

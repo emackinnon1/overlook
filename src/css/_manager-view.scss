@@ -44,6 +44,11 @@
 		padding: 15px;
 		width: 800px;
 
+		.search-user-dashboard {
+			display: flex;
+			flex-direction: column;
+		}
+
 		.search-users {
 			margin-bottom: 15px;
 			width: 150px;
@@ -57,4 +62,6 @@
 			width: 70px;
 		}
 	}
+
+	
 }
