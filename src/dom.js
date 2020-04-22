@@ -212,11 +212,10 @@ const dom = {
 	},
 
 	findUser(e) {
-		console.log(state.currentHotel.bookings)
 		let searchInput = $('.search-users').val();
 		let searchedUser = state.currentUser.findUserByName(searchInput);
 		searchedUser.findMyBookings(state.currentHotel.bookings, state.currentHotel.rooms);
-		dom.displaySearchedUsersBookings(searchedUser)
+		dom.displaySearchedUsersBookings(searchedUser);
 	},
 
 	displaySearchedUsersBookings(user) {
@@ -232,7 +231,7 @@ const dom = {
 	},
 
 	addUpcomingBookingForUser() {
-
+		$('.search-user-results').empty();
 	},
 
 	cancelBooking(e) {
