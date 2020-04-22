@@ -10,7 +10,7 @@ const state = {
 		state.currentUser = stateData.currentUser || state.currentUser;
 		state.currentHotel = stateData.currentHotel || state.currentHotel;
 		state.dateChoice = stateData.dateChoice || state.dateChoice;
-		// state.updateCurrentUserBookings();
+		state.updateCurrentUserBookings();
 	},
 
 	updateCurrentUserBookings() {

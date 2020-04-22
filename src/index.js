@@ -45,5 +45,9 @@ export function updateHotelBookings() {
 	.catch(err => console.error(err))
 }
 
+export function deleteBooking() {
+	
+}
+
 retrieveAllData();
 

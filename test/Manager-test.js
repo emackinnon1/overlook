@@ -15,11 +15,14 @@ describe('Manager', function() {
 		manager = new Manager(userTestData);
 		hotel = new Hotel(bookingsTestData, roomServicesTestData, roomsTestData);
 	});
+
   it('should be an instance of Manager class', function() {
 		expect(manager).to.be.an.instanceOf(Manager);
 	});
 	
-	it('should find total rooms available for today\'s date', function() {
-		
+	it.only('should find a user by name', function() {
+		expect(manager.findUserByName('Rocio Schuster')).to.deep.equal(manager.users[1]);
+		expect(manager.findUserByName('rocio schuster')).to.deep.equal(manager.users[1]);
 	});
+
 });
