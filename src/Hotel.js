@@ -78,6 +78,10 @@ class Hotel {
 		return pickedRoom.number;
 	}
 
+	findBookingByID(id) {
+		return this.bookings.find(booking => booking.id == id)
+	}
+
 }
 
 export default Hotel;

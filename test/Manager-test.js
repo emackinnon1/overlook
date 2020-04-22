@@ -20,7 +20,7 @@ describe('Manager', function() {
 		expect(manager).to.be.an.instanceOf(Manager);
 	});
 	
-	it.only('should find a user by name', function() {
+	it('should find a user by name', function() {
 		expect(manager.findUserByName('Rocio Schuster')).to.deep.equal(manager.users[1]);
 		expect(manager.findUserByName('rocio schuster')).to.deep.equal(manager.users[1]);
 	});
