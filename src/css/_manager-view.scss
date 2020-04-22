@@ -1,0 +1,60 @@
+.manager-view {
+	h2 {
+		text-align: center;
+	}
+
+	div {
+		float: left;
+
+		.manager-dashboard-info {
+			//mixin
+			background-color: $dark-blue;
+			border: 1px solid $accent;
+			border-radius: 6px;
+			box-shadow: 0 0 1.5em $dark-blue;
+			//
+			display: flex;
+			flex-direction: column;
+			padding: 15px;
+			text-align: center;
+			width: 350px;
+
+			p {
+				border-bottom: 1px solid $accent;
+				margin-bottom: 15px;
+			}
+
+			li {
+				text-align: left;
+				margin-bottom: 5px;
+			}
+		}
+	}
+
+	.manager-dashboard-main {
+		//mixin
+		background-color: $dark-blue;
+		border: 1px solid $accent;
+		border-radius: 6px;
+		box-shadow: 0 0 1.5em rgb(20, 30, 48);
+		//
+		display: flex;
+		flex-direction: column;
+		margin: auto;
+		padding: 15px;
+		width: 800px;
+
+		.search-users {
+			margin-bottom: 15px;
+			width: 150px;
+		}
+
+		button {
+			border: 1px solid $accent;
+			border-radius: 6px;
+			box-shadow: 0 0 1.5em $accent;
+			cursor: pointer;
+			width: 70px;
+		}
+	}
+}
