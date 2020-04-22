@@ -1,7 +1,18 @@
 import $ from 'jquery';
 import moment from 'moment';
 import datepicker from 'js-datepicker';
-import { capitalize } from './util';
+import {
+	capitalize,
+	findAvailableRoomTypes
+} from './util';
+import {
+	manager,
+	hotel,
+	postBooking,
+	deleteBooking,
+	updateHotelBookings
+} from './index'
+import state from './state';
 
 import './css/base.scss';
 import './images/door.jpg';
@@ -18,13 +29,6 @@ import './images/single room.jpg';
 import './images/residential suite.jpg';
 
 
-import {
-	manager,
-	hotel,
-	postBooking,
-	deleteBooking
-} from './index'
-import state from './state';
 
 
 const dom = {
@@ -38,7 +42,7 @@ const dom = {
 		$('.view-bookings-button').on('click', dom.displayMyBookings);
 		$('.search-users-button').on('click', dom.findUser);
 		$('.manager-dashboard-main').on('click', dom.cancelBooking);
-
+		$('#manager-date-input').on('change input', dom.showBookingOptionsForUser);
 	},
 
 	handleUserLogin(e) {
@@ -86,17 +90,15 @@ const dom = {
 	displayMakeBookingDashboard(e) {
 		$('.customer-main-dashboard').addClass('hide');
 		$('.make-booking-dashboard').removeClass('hide');
-		dom.setDateFromNow();
+		dom.setUserDatePicker();
 	},
 
-	setDateFromNow() {
+	setUserDatePicker() {
 		let searchDate = datepicker('#booking-date-input', {
 			formatter: (input, date, minDate) => {
 				minDate = new Date();
 				const value = moment(date).format('YYYY/MM/DD');
-				// const value = date.toISOString().slice(0, 10).replace(/-/g, "/");
 				input.value = value;
-				console.log(value)
 			},
 			minDate: new Date()
 		});
@@ -126,7 +128,7 @@ const dom = {
 			If the windows aren't boarded up, they give a lovely view of the local landfill!</p>
 			<p>Click an image to choose one of our lovely rooms:</p>
 		`);
-		dom.findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
+		findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
 			$('.room-search-results').append(`
 				<label id="${type.split(' ').join('-')}" class="image-radio">
 					<input type="radio" name="room" value="${type}">
@@ -151,15 +153,6 @@ const dom = {
 		}
 	},
 
-	findAvailableRoomTypes(listOfRooms) {
-		return listOfRooms.reduce((acc, room) => {
-			if (!acc.includes(room.roomType)) {
-				acc.push(room.roomType);
-			}
-			return acc;
-		}, []);
-	},
-
 	submitBooking(e) {
 		let totalAvailableRooms = state.currentHotel.findAvailableRooms(state.dateChoice);
 		let roomType = $(`form input[type="radio"]:checked`).val();
@@ -173,9 +166,8 @@ const dom = {
 				});
 				dom.displayUserView(e);
 				dom.clearRoomSearchResults(e);
-				console.log(booking)
 				postBooking(booking);
-				console.log(state.currentHotel.bookings);
+				setTimeout(updateHotelBookings, 300);
 				$('.my-bookings').empty();
 			} else {
 				alert('Please click a room picture to make a choice');
@@ -212,26 +204,52 @@ const dom = {
 	},
 
 	findUser(e) {
+		dom.setManagerDatePicker();
 		let searchInput = $('.search-users').val();
 		let searchedUser = state.currentUser.findUserByName(searchInput);
 		searchedUser.findMyBookings(state.currentHotel.bookings, state.currentHotel.rooms);
-		dom.displaySearchedUsersBookings(searchedUser)
+		dom.displaySearchedUsersBookings(searchedUser);
 	},
 
 	displaySearchedUsersBookings(user) {
-		$('.manager-dashboard-main').append(`<h3>${user.name}'s bookings:</h3>`);
-		$('.manager-dashboard-main').append(`<h3>Total spent: $${user.findRoomTotal(state.currentHotel.rooms)}</h3>`);
-		console.log(user)
+		$('.search-user-results').empty();
+		$('.search-user-results').append(`<h3>${user.name}'s bookings:</h3>`);
+		$('.search-user-results').append(`<h3>Total spent: $${user.findRoomTotal(state.currentHotel.rooms)}</h3>`);
 		user.myBookings.forEach(booking => {
-			$('.manager-dashboard-main').append(`
+			$('.search-user-results').append(`
 				<p>Date: ${booking.date}, Room Type: ${booking.roomType}</p>
-				<button class="cancel-booking-button" id=${booking.id} data-date="${booking.date}">Cancel</button>
+				<button class="cancel-booking-button" id=${booking.id} data-date="${booking.date}">Cancel Booking</button>
 			`);
 		});
 	},
 
-	addUpcomingBookingForUser() {
+	setManagerDatePicker() {
+		let searchDate = datepicker('#manager-date-input', {
+			formatter: (input, date, minDate) => {
+				minDate = new Date();
+				const value = moment(date).format('YYYY/MM/DD');
+				input.value = value;
+			},
+			minDate: new Date()
+		});
+	},
 
+	showBookingOptionsForUser(e) {
+		if ($('.search-users').val() === '') {
+			alert('Please find a user');
+		}
+		state.updateState({dateChoice: $('#manager-date-input').val()});
+		let totalAvailableRooms = state.currentHotel.findAvailableRooms(state.dateChoice);
+		if (!totalAvailableRooms) {
+			alert('No available rooms!  Choose another date.')
+		}
+		if ($('#manager-room-selection').children().length < 2){
+			findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
+				$('#manager-room-selection').append(`
+					<option id="${type.split(' ').join('-')} value="${type}">${capitalize(type)}</option>
+				`);
+			});
+		}
 	},
 
 	cancelBooking(e) {
@@ -241,8 +259,14 @@ const dom = {
 				let bookingId = $(e.target).attr('id');
 				let bookingToCancel = state.currentHotel.findBookingByID(bookingId);
 				deleteBooking(bookingToCancel);
+				updateHotelBookings();
+				setTimeout(dom.findUser, 600);
 			}
 		}
+	},
+
+	managerPostBooking(e) {
+		
 	}
 
 }

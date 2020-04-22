@@ -33,7 +33,6 @@ export function postBooking(post) {
 		body: JSON.stringify(post)
 	})
 	.then(response => response.json())
-	.then(setTimeout(updateHotelBookings, 300))
 	.catch(err => console.error(err))
 }
 
@@ -54,7 +53,7 @@ export function deleteBooking(post) {
 			body: JSON.stringify(post)
 		})
 		.then(response => response.json())
-		.then(response => console.log(response))
+		.then(setTimeout(updateHotelBookings, 300))
 		.catch(err => console.error(err))
 
 }

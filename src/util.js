@@ -5,4 +5,13 @@ export function capitalize(str) {
 		}
 		return str.join(" ");
 	}
+
+export function findAvailableRoomTypes(listOfRooms) {
+	return listOfRooms.reduce((acc, room) => {
+		if (!acc.includes(room.roomType)) {
+			acc.push(room.roomType);
+		}
+		return acc;
+	}, []);
+}
 	

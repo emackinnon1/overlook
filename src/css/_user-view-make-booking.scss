@@ -1,10 +1,6 @@
 .make-booking-dashboard {
-	//mixin
+	@include border-shadow($accent, $dark-blue, 1.5em);
 	background-color: $dark-blue;
-	border: 1px solid $accent;
-	border-radius: 6px;
-	box-shadow: 0 0 1.5em $dark-blue;
-	//
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -56,9 +52,7 @@
 		}
 
 		[type='radio']:checked+img {
-			border-radius: 6px;
-			border: 1px solid $accent;
-			box-shadow: 0 0 1.5em $accent;
+			@include border-shadow($accent, $accent, 1.5em);
 		}
 
 		img {
