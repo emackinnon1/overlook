@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-		<title>Red Rum</title>
-		<meta name=“viewport” content=“width=device-width, initial-scale=1" />
+    <title>Red Rum</title>
+    <meta name=“viewport” content=“width=device-width, initial-scale=1" />
   </head>
 
   <body>
@@ -11,11 +11,17 @@
       <h4>Your unforgettable experience awaits!</h4>
       <form action="">
         <div class="user-box">
-          <input class="username" type="text" value="manager" name="" required="" />
+          <input
+            class="username"
+            type="text"
+            value="manager"
+            name=""
+            required=""
+          />
           <label>Username</label>
         </div>
         <div class="user-box">
-          <input class="password" type="password" value="overlook2020"/>
+          <input class="password" type="password" value="overlook2020" />
           <label for="">Password</label>
         </div>
         <div class="sign-in a">
@@ -31,17 +37,28 @@
       <h2>Welcome back, you sexy beast!</h2>
       <div>
         <section class="manager-dashboard-info"></section>
-			</div>
-			<section class="manager-dashboard-main">
-				<section class="search-user-dashboard">
-					<input class="search-users" type="search" placeholder="Search by customer name">
-					<button class="search-users-button" type="button">Search</button>
-					<button class="make-booking-manager" type="button">Make booking for this user</button>
-					<section class="search-user-results"></section>
-				</section>
-				<section class="manager-booking-dashboard">
-				</section>
-			</section>
+      </div>
+      <section class="manager-dashboard-main">
+        <section class="search-user-dashboard">
+          <input
+            class="search-users"
+            type="search"
+            placeholder="Search by customer name"
+          />
+          <button class="search-users-button" type="button">Search</button>
+          <section class="manager-booking-dashboard">
+            <button class="make-booking-manager-button" type="button">
+              Make booking for this user
+						</button>
+						<section class="manager-date-container">
+							<input type="input" id="manager-date-input" name="date" />
+							<label for="date">Date (YYYY/MM/DD)</label>
+						</section>
+          </section>
+          <section class="search-user-results"></section>
+        </section>
+        <section class="manager-booking-dashboard"></section>
+      </section>
     </main>
     <main class="user-view hide">
       <header>
@@ -71,22 +88,25 @@
       </div>
       <section class="customer-main-dashboard">
         <h2 class="customer-welcome"></h2>
-				<button class="view-bookings-button">View my Bookings</button>
+        <button class="view-bookings-button">View my Bookings</button>
         <button class="book-room-button">Book a room</button>
-				<section class="my-bookings">
-				</section>
-			</section>
-			<section class="make-booking-dashboard hide">
-				<form id="booking-form">
-					<section>
-						<label for="date">Date (YYYY/MM/DD)</label>
-						<input type="input" id="booking-date-input" name="date"/>
-					</section>
-					<button type="button" class="search-rooms-button">Search</button>
-					<input class="searchbar" type="search" placeholder="Filter by room type"/> 
-					<section class="room-search-results"></section>
+        <section class="my-bookings"></section>
+      </section>
+      <section class="make-booking-dashboard hide">
+        <form id="booking-form">
+          <section>
+            <label for="date">Date (YYYY/MM/DD)</label>
+            <input type="input" id="booking-date-input" name="date" />
+          </section>
+          <button type="button" class="search-rooms-button">Search</button>
+          <input
+            class="searchbar"
+            type="search"
+            placeholder="Filter by room type"
+          />
+          <section class="room-search-results"></section>
         </form>
-			</section>
+      </section>
     </main>
   </body>
 </html>

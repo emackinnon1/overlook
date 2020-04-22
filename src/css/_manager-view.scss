@@ -60,15 +60,7 @@
 			box-shadow: 0 0 1.5em $accent;
 			width: 70px;
 		}
-		
-		.make-booking-manager {
-			border: 1px solid $accent;
-			border-radius: 6px;
-			box-shadow: 0 0 1.5em $accent;
-			margin-left: auto;
-			margin-top: -19px;
-			width: 150px;
-		}
+
 
 		button {
 			border: 1px solid $accent;
@@ -77,7 +69,37 @@
 			cursor: pointer;
 			width: 120px;
 		}
+
+		.manager-booking-dashboard {
+			align-items: center;
+			display: flex;
+			flex-direction: column;
+			margin-left: auto;
+			margin-top: -21px;
+			margin-bottom: 10px;
+
+			label {
+				display: block;
+				font-size: 12px;
+			}
+			
+			input {
+				margin-top: 15px;
+				margin-bottom: 10px;
+			}
+
+			.make-booking-manager-button {
+				border: 1px solid $accent;
+				border-radius: 6px;
+				box-shadow: 0 0 0.5em $accent;
+				width: 150px;
+			}
+
+			.manager-date-container {
+
+			}
+		}
 	}
 
-	
+
 }

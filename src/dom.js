@@ -1,7 +1,18 @@
 import $ from 'jquery';
 import moment from 'moment';
 import datepicker from 'js-datepicker';
-import { capitalize } from './util';
+import {
+	capitalize,
+	findAvailableRoomTypes
+} from './util';
+import {
+	manager,
+	hotel,
+	postBooking,
+	deleteBooking,
+	updateHotelBookings
+} from './index'
+import state from './state';
 
 import './css/base.scss';
 import './images/door.jpg';
@@ -18,14 +29,6 @@ import './images/single room.jpg';
 import './images/residential suite.jpg';
 
 
-import {
-	manager,
-	hotel,
-	postBooking,
-	deleteBooking,
-	updateHotelBookings
-} from './index'
-import state from './state';
 
 
 const dom = {
@@ -87,17 +90,15 @@ const dom = {
 	displayMakeBookingDashboard(e) {
 		$('.customer-main-dashboard').addClass('hide');
 		$('.make-booking-dashboard').removeClass('hide');
-		dom.setDateFromNow();
+		dom.setUserDatePicker();
 	},
 
-	setDateFromNow() {
+	setUserDatePicker() {
 		let searchDate = datepicker('#booking-date-input', {
 			formatter: (input, date, minDate) => {
 				minDate = new Date();
 				const value = moment(date).format('YYYY/MM/DD');
-				// const value = date.toISOString().slice(0, 10).replace(/-/g, "/");
 				input.value = value;
-				console.log(value)
 			},
 			minDate: new Date()
 		});
@@ -127,7 +128,7 @@ const dom = {
 			If the windows aren't boarded up, they give a lovely view of the local landfill!</p>
 			<p>Click an image to choose one of our lovely rooms:</p>
 		`);
-		dom.findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
+		findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
 			$('.room-search-results').append(`
 				<label id="${type.split(' ').join('-')}" class="image-radio">
 					<input type="radio" name="room" value="${type}">
@@ -150,15 +151,6 @@ const dom = {
 			$('.image-radio').addClass('hide');
 			$(`#${searchString}`).removeClass('hide');
 		}
-	},
-
-	findAvailableRoomTypes(listOfRooms) {
-		return listOfRooms.reduce((acc, room) => {
-			if (!acc.includes(room.roomType)) {
-				acc.push(room.roomType);
-			}
-			return acc;
-		}, []);
 	},
 
 	submitBooking(e) {
@@ -212,6 +204,7 @@ const dom = {
 	},
 
 	findUser(e) {
+		dom.setManagerDatePicker();
 		let searchInput = $('.search-users').val();
 		let searchedUser = state.currentUser.findUserByName(searchInput);
 		searchedUser.findMyBookings(state.currentHotel.bookings, state.currentHotel.rooms);
@@ -228,10 +221,38 @@ const dom = {
 				<button class="cancel-booking-button" id=${booking.id} data-date="${booking.date}">Cancel Booking</button>
 			`);
 		});
+		dom.showBookingOptionsForUser();
 	},
 
-	addUpcomingBookingForUser() {
-		$('.search-user-results').empty();
+	setManagerDatePicker() {
+		let searchDate = datepicker('#manager-date-input', {
+			formatter: (input, date, minDate) => {
+				minDate = new Date();
+				const value = moment(date).format('YYYY/MM/DD');
+				input.value = value;
+			},
+			minDate: new Date()
+		});
+	},
+
+	showBookingOptionsForUser() {
+if ($('.search-users').val() === '') {
+			alert('Please find a user');
+		}
+		state.updateCurrentUserBookings();
+		let totalAvailableRooms = state.currentHotel.findAvailableRooms(state.dateChoice);
+		state.updateState({dateChoice: $('#booking-date-input').val()});
+		if (!totalAvailableRooms) {
+			alert('No available rooms!  Choose another date.')
+		}
+		findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
+				$('.manager-booking-dashboard').append(`
+				<label id="${type.split(' ').join('-')}" class="image-radio">
+					<input type="radio" name="room" value="${type}">
+					<p>${capitalize(type)}</p>
+				</label>
+				`);
+		});
 	},
 
 	cancelBooking(e) {
