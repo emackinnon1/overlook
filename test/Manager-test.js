@@ -22,5 +22,7 @@ describe('Manager', function() {
 	
 	it.only('should find a user by name', function() {
 		expect(manager.findUserByName('Rocio Schuster')).to.deep.equal(manager.users[1]);
+		expect(manager.findUserByName('rocio schuster')).to.deep.equal(manager.users[1]);
 	});
+
 });

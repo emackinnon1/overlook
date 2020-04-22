@@ -1,5 +1,7 @@
 import User from './User';
-import { capitalize } from './util';
+import {
+	capitalize
+} from './util';
 
 class Manager {
 	constructor(data) {
@@ -13,7 +15,6 @@ class Manager {
 			let user = new User(currentUser);
 			return user;
 		})
-
 	}
 
 	signIn(usernameInput, passwordInput) {
@@ -28,7 +29,9 @@ class Manager {
 			return user.name === searchTerm;
 		});
 	}
+
 }
+
 
 
 export default Manager;

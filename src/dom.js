@@ -21,7 +21,8 @@ import './images/residential suite.jpg';
 import {
 	manager,
 	hotel,
-	postBooking
+	postBooking,
+	deleteBooking
 } from './index'
 import state from './state';
 
@@ -35,6 +36,9 @@ const dom = {
 		$('.make-booking-dashboard').on('click', dom.submitBooking);
 		$('.searchbar').on('keyup', dom.filterByRoomType);
 		$('.view-bookings-button').on('click', dom.displayMyBookings);
+		$('.search-users-button').on('click', dom.findUser);
+		$('.manager-dashboard-main').on('click', dom.cancelBooking);
+
 	},
 
 	handleUserLogin(e) {
@@ -89,8 +93,10 @@ const dom = {
 		let searchDate = datepicker('#booking-date-input', {
 			formatter: (input, date, minDate) => {
 				minDate = new Date();
-				const value = date.toISOString().slice(0, 10).replace(/-/g, "/");
+				const value = moment(date).format('YYYY/MM/DD');
+				// const value = date.toISOString().slice(0, 10).replace(/-/g, "/");
 				input.value = value;
+				console.log(value)
 			},
 			minDate: new Date()
 		});
@@ -145,14 +151,6 @@ const dom = {
 		}
 	},
 
-	// capitalize(str) {
-	// 	str = str.split(" ");
-	// 	for (var i = 0, x = str.length; i < x; i++) {
-	// 		str[i] = str[i][0].toUpperCase() + str[i].substr(1);
-	// 	}
-	// 	return str.join(" ");
-	// },
-
 	findAvailableRoomTypes(listOfRooms) {
 		return listOfRooms.reduce((acc, room) => {
 			if (!acc.includes(room.roomType)) {
@@ -190,6 +188,8 @@ const dom = {
 		$('#booking-date-input').val() === '';
 	},
 
+	// manager view functions (move to separate file?)
+
 	displayManagerView(e) {
 		$('.login-box').addClass('hide');
 		$('.manager-view').removeClass('hide');
@@ -206,10 +206,44 @@ const dom = {
 			<ul>
 				<li>Tell Pete to stop being so sweaty around the customers</li>
 				<li>Inform Linda that she needs to fight with her boyfriend off company grounds</li>
-				<li>Tell the guests in room 23 to stop watching Sesame Street so loudly at 4am</li>
+				<li>Tell the guests in room 23 to stop watching Sesame Street so loudly at 4am and singing along</li>
 			</ul>
 			`);
 	},
+
+	findUser(e) {
+		let searchInput = $('.search-users').val();
+		console.log(searchInput)
+		let searchedUser = state.currentUser.findUserByName(searchInput);
+		searchedUser.findMyBookings(state.currentHotel.bookings, state.currentHotel.rooms);
+		dom.displaySearchedUsersBookings(searchedUser)
+	},
+
+	displaySearchedUsersBookings(user) {
+		$('.manager-dashboard-main').append(`<h3>${user.name}'s bookings:</h3>`);
+		$('.manager-dashboard-main').append(`<h3>Total spent: $${user.findRoomTotal(state.currentHotel.rooms)}</h3>`);
+		console.log(user)
+		user.myBookings.forEach(booking => {
+			$('.manager-dashboard-main').append(`
+				<p>Date: ${booking.date}, Room Type: ${booking.roomType}</p>
+				<button class="cancel-booking-button" id=${booking.id} data-date="${booking.date}">Cancel</button>
+			`);
+		});
+	},
+
+	addUpcomingBookingForUser() {
+
+	},
+
+	cancelBooking(e) {
+		if ($(e.target).hasClass('cancel-booking-button')) {
+			let cancelDate = $(e.target).data('date');
+			let bookingToCancel = state.currentHotel.getBookingsByDate(cancelDate)
+			console.log(bookingToCancel)
+		}
+		// let bookingDate = e.target.data('date');
+		// if ()
+	}
 
 }
 
