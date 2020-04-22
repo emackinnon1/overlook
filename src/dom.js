@@ -42,7 +42,6 @@ const dom = {
 		$('.view-bookings-button').on('click', dom.displayMyBookings);
 		$('.search-users-button').on('click', dom.findUser);
 		$('.manager-dashboard-main').on('click', dom.cancelBooking);
-		$('.manager-date-search-button').on('click', dom.showBookingOptionsForUser);
 		$('#manager-date-input').on('change input', dom.showBookingOptionsForUser);
 	},
 
@@ -245,7 +244,6 @@ const dom = {
 			alert('No available rooms!  Choose another date.')
 		}
 		if ($('#manager-room-selection').children().length < 2){
-			console.log($('#manager-room-selection').children().length)
 			findAvailableRoomTypes(totalAvailableRooms).forEach(type => {
 				$('#manager-room-selection').append(`
 					<option id="${type.split(' ').join('-')} value="${type}">${capitalize(type)}</option>
