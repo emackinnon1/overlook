@@ -1,1 +1,5 @@
-@mixin button
+@mixin border-shadow($border, $shadow, $size) {
+	border: 1px solid $border;
+	border-radius: 6px;
+	box-shadow: 0 0 $size $shadow;
+}

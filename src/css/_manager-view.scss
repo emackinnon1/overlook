@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .manager-view {
 	h2 {
 		text-align: center;
@@ -7,12 +9,8 @@
 		float: left;
 
 		.manager-dashboard-info {
-			//mixin
+			@include border-shadow($accent, $dark-blue, 1.5em);
 			background-color: $dark-blue;
-			border: 1px solid $accent;
-			border-radius: 6px;
-			box-shadow: 0 0 1.5em $dark-blue;
-			//
 			display: flex;
 			flex-direction: column;
 			padding: 15px;
@@ -32,12 +30,8 @@
 	}
 
 	.manager-dashboard-main {
-		//mixin
+		@include border-shadow($accent, $dark-blue, 1.5em);
 		background-color: $dark-blue;
-		border: 1px solid $accent;
-		border-radius: 6px;
-		box-shadow: 0 0 1.5em rgb(20, 30, 48);
-		//
 		display: flex;
 		flex-direction: column;
 		margin: auto;
@@ -52,22 +46,17 @@
 				position: relative;
 				top: -120px;
 			}
-			
+
 			.search-users {
 				margin-bottom: 15px;
 				width: 150px;
 			}
-			
+
 			.search-users-button {
-				border: 1px solid $accent;
-				border-radius: 6px;
-				box-shadow: 0 0 1.5em $accent;
+				@include border-shadow($accent, $accent, 1.5em);
 				width: 70px;
 			}
 		}
-
-
-
 
 		button {
 			border: 1px solid $accent;
@@ -102,17 +91,13 @@
 				z-index: 10000;
 
 				.make-booking-manager-button {
-					border: 1px solid $accent;
-					border-radius: 6px;
-					box-shadow: 0 0 0.5em $accent;
+					@include border-shadow($accent, $accent, 0.5em);
 					margin-top: 20px;
 					width: 150px;
 				}
 
 				.manager-date-search-button {
-					border: 1px solid $accent;
-					border-radius: 6px;
-					box-shadow: 0 0 0.5em $accent;
+					@include border-shadow($accent, $accent, 0.5em);
 					margin-top: 15px;
 				}
 
