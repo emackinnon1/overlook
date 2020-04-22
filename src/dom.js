@@ -22,7 +22,8 @@ import {
 	manager,
 	hotel,
 	postBooking,
-	deleteBooking
+	deleteBooking,
+	updateHotelBookings
 } from './index'
 import state from './state';
 
@@ -173,9 +174,8 @@ const dom = {
 				});
 				dom.displayUserView(e);
 				dom.clearRoomSearchResults(e);
-				console.log(booking)
 				postBooking(booking);
-				console.log(state.currentHotel.bookings);
+				setTimeout(updateHotelBookings, 300);
 				$('.my-bookings').empty();
 			} else {
 				alert('Please click a room picture to make a choice');
@@ -225,7 +225,7 @@ const dom = {
 		user.myBookings.forEach(booking => {
 			$('.manager-dashboard-main').append(`
 				<p>Date: ${booking.date}, Room Type: ${booking.roomType}</p>
-				<button class="cancel-booking-button" id=${booking.id} data-date="${booking.date}">Cancel</button>
+				<button class="cancel-booking-button" id=${booking.id} data-date="${booking.date}">Cancel Booking</button>
 			`);
 		});
 	},
